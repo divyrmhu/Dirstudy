@@ -1,10 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
-
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Semiconductor Physics Notes</title>
+    <title>Electronics Engineering In-Depth Study Guide</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
         MathJax = {
@@ -16,639 +15,474 @@
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <style>
-        body {
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            line-height: 1.6;
-        }
-
-        .glass-panel {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-        }
-
-        .question-card {
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
-        }
-
-        .question-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
-        }
-
-        svg text {
-            font-family: inherit;
-        }
+        body { font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; line-height: 1.7; }
+        .question-card { transition: transform 0.2s ease, box-shadow 0.2s ease; }
+        .question-card:hover { transform: translateY(-2px); box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); }
+        .trace-table th { background-color: #fffbeb; }
+        .trace-table tr:nth-child(even) { background-color: #fffdf5; }
+        .math-box { background-color: #fff; border: 1px solid #fed7aa; padding: 1rem; border-radius: 0.5rem; margin-top: 0.5rem; margin-bottom: 0.5rem; overflow-x: auto; }
     </style>
-
-    <script>
-        tailwind.config = {
-            darkMode: 'class',
-            theme: {
-                extend: {}
-            }
-        }
-    </script>
-    <script>
-        if (localStorage.getItem('theme') === 'light') {
-            document.documentElement.classList.remove('dark');
-        } else {
-            document.documentElement.classList.add('dark');
-        }
-
-        function toggleTheme() {
-            if (document.documentElement.classList.contains('dark')) {
-                document.documentElement.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-            } else {
-                document.documentElement.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-            }
-        }
-    </script>
-
 </head>
+<body class="bg-slate-50 text-slate-800 p-4 md:p-8">
 
-<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 md:p-8">
-
-    <div class="fixed top-4 right-4 z-50">
-        <button onclick="toggleTheme()" class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 rounded-full text-sm font-semibold text-slate-800 dark:text-slate-200 shadow hover:shadow-md border border-slate-200 dark:border-slate-700 transition-colors">
-            🌓 Toggle Theme
-        </button>
-    </div>
-
-    <div class="max-w-5xl mx-auto space-y-8">
-
-        <header class="relative text-center py-10 bg-gradient-to-r from-blue-600 to-indigo-700 text-white rounded-2xl shadow-lg">
-            <a href="index.html"
-                class="absolute top-4 left-4 inline-flex items-center gap-2 bg-white dark:bg-slate-800/20 hover:bg-white dark:bg-slate-800/30 text-white px-4 py-2 rounded-lg backdrop-blur-sm transition-all duration-200 text-sm font-semibold">
-                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                </svg>
-                Home
-            </a>
-            <h1 class="text-3xl md:text-5xl font-bold mb-4">Semiconductor Physics & Devices</h1>
-            <p class="text-lg text-blue-100">Comprehensive Notes, Derivations, and Diagrams</p>
+    <div class="max-w-6xl mx-auto space-y-10">
+        
+        <!-- Header -->
+        <header class="text-center py-12 bg-gradient-to-r from-amber-500 to-orange-600 text-white rounded-3xl shadow-lg">
+            <h1 class="text-3xl md:text-5xl font-bold mb-4">Electronics Engineering</h1>
+            <p class="text-xl text-amber-100">Master Study Guide: Minute Details & Complete Derivations</p>
         </header>
 
-        <div class="question-card bg-white dark:bg-slate-800 p-6 md:p-8 rounded-2xl shadow-sm border dark:border-slate-700 border-slate-100 dark:border-slate-700">
-            <h2 class="text-xl font-bold text-indigo-700 dark:text-indigo-300 mb-4">1. Advantages of Semiconductor over Conductor</h2>
-            <ul class="list-disc pl-6 space-y-2">
-                <li><strong>Control of Conductivity:</strong> The conductivity of semiconductors can be precisely
-                    controlled by adding impurities (doping) and applying external energy (heat, light, voltage),
-                    whereas a conductor's conductivity is fixed.</li>
-                <li><strong>Unidirectional Current Flow:</strong> Semiconductor devices like PN junction diodes allow
-                    current to flow in only one direction, which is impossible with standard conductors. This enables
-                    rectification.</li>
-                <li><strong>Negative Temperature Coefficient:</strong> As temperature increases, the resistance of a
-                    semiconductor decreases. Conductors increase in resistance with temperature.</li>
-                <li><strong>Amplification & Switching:</strong> Transistors (made of semiconductors) can amplify signals
-                    and act as digital switches, forming the basis of all modern electronics and computers.</li>
-                <li><strong>Energy Efficiency & Size:</strong> Semiconductor devices consume much less power, do not
-                    require a vacuum or heating filaments (like old vacuum tubes), and can be miniaturized to nanometer
-                    scales.</li>
+        <!-- Exam Format Box -->
+        <div class="bg-orange-50 border-l-4 border-orange-500 p-6 rounded-r-2xl shadow-sm">
+            <h3 class="text-xl font-bold text-orange-900 mb-2">🎯 Exam Format & Strategy</h3>
+            <ul class="list-disc pl-5 space-y-1 text-sm text-orange-800 font-medium">
+                <li><strong>10 Marks Section:</strong> Answer any 10 out of 12 questions.</li>
+                <li><strong>5 Marks Section:</strong> Answer any 4 out of 6 questions.</li>
+                <li><strong>Major Sections:</strong> 10 Marks x 3 sections.</li>
+                <li class="italic mt-2 text-red-600">*Note: Mathematics for Q-point, Load line, Transistor Current components, and OP-AMPs are highly important for scoring full marks!</li>
             </ul>
         </div>
 
-        <div class="question-card bg-white dark:bg-slate-800 p-6 md:p-8 rounded-2xl shadow-sm border dark:border-slate-700 border-slate-100 dark:border-slate-700">
-            <h2 class="text-xl font-bold text-indigo-700 dark:text-indigo-300 mb-4">2. Define Forbidden Gap (Band Gap)</h2>
-            <p>The <strong>Forbidden Gap</strong> (or Energy Band Gap, $E_g$) is the energy range in a solid where no
-                permitted electron energy states exist. It is the energy difference between the highest point of the
-                valence band (where electrons are bound to atoms) and the lowest point of the conduction band (where
-                electrons are free to move and conduct current).</p>
-            <p class="mt-2 bg-blue-50 dark:bg-blue-900/30 p-3 rounded-lg border dark:border-slate-700 border-blue-100 dark:border-blue-800">
+        <!-- ========================================== -->
+        <!-- MODULE 1: SEMICONDUCTOR PHYSICS            -->
+        <!-- ========================================== -->
+        <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 space-y-8">
+            <h2 class="text-3xl font-bold text-slate-800 border-b-4 border-orange-400 inline-block pb-2">Module 1: Semiconductor Physics</h2>
 
+            <!-- Topic 1 & 2 -->
+            <div>
+                <h3 class="text-xl font-bold text-orange-700 mb-2">1 & 2. Covalent Bonds, Band Theory & Conductors vs. Semiconductors</h3>
+                <p class="text-sm text-slate-700 mb-3"><strong>Covalent Bonds:</strong> In an intrinsic (pure) semiconductor like Silicon or Germanium, each atom has 4 valence electrons. Atoms share these electrons with 4 neighboring atoms to form stable covalent bonds, creating a rigid crystal lattice.</p>
+                <p class="text-sm text-slate-700 mb-3"><strong>Band Theory:</strong> When billions of atoms come together, their discrete energy levels overlap and split to form continuous "Bands".</p>
+                <ul class="list-disc pl-5 text-sm text-slate-700 space-y-2">
+                    <li><strong>Valence Band (VB):</strong> The highest energy band filled with bound electrons (those taking part in covalent bonds).</li>
+                    <li><strong>Conduction Band (CB):</strong> The next higher energy band. Electrons here are free to move and conduct electricity.</li>
+                    <li><strong>Forbidden Gap ($E_g$):</strong> The energy gap between VB and CB where no electrons can exist.</li>
+                </ul>
 
-            </p>
-        </div>
-
-        <div class="question-card bg-white dark:bg-slate-800 p-6 md:p-8 rounded-2xl shadow-sm border dark:border-slate-700 border-slate-100 dark:border-slate-700">
-            <h2 class="text-xl font-bold text-indigo-700 dark:text-indigo-300 mb-4">3. Conductors, Semiconductors, and Insulators based on
-                Band Theory</h2>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6 text-sm">
-                <div class="text-center">
-                    <h3 class="font-bold text-lg mb-2">Conductor</h3>
-                    <p>The conduction band and valence band <strong>overlap</strong>. There is no forbidden gap ($E_g =
-                        0$). Electrons are free to move even at 0K.</p>
-                </div>
-                <div class="text-center">
-                    <h3 class="font-bold text-lg mb-2">Semiconductor</h3>
-                    <p>There is a <strong>narrow</strong> forbidden gap ($E_g \approx 1 \text{ eV}$). At 0K it behaves
-                        as an insulator, but at room temperature, some electrons gain enough thermal energy to cross the
-                        gap.</p>
-                </div>
-                <div class="text-center">
-                    <h3 class="font-bold text-lg mb-2">Insulator</h3>
-                    <p>There is a <strong>wide</strong> forbidden gap ($E_g > 3 \text{ eV}$, typically ~5-9 eV).
-                        Electrons cannot cross the gap under normal conditions.</p>
-                </div>
-            </div>
-
-            <div class="flex justify-center bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border dark:border-slate-700 border-slate-200 dark:border-slate-700 overflow-x-auto">
-                <svg width="600" height="250" viewBox="0 0 600 250" xmlns="http://www.w3.org/2000/svg">
-                    <g transform="translate(50, 20)">
-                        <rect x="0" y="20" width="100" height="80" fill="#bae6fd" stroke="#0284c7" stroke-width="2" />
-                        <rect x="0" y="80" width="100" height="80" fill="#fca5a5" stroke="#dc2626" stroke-width="2"
-                            opacity="0.8" />
-                        <text x="50" y="50" text-anchor="middle" font-weight="bold" fill="#0284c7">Conduction</text>
-                        <text x="50" y="65" text-anchor="middle" font-weight="bold" fill="#0284c7">Band</text>
-                        <text x="50" y="130" text-anchor="middle" font-weight="bold" fill="#dc2626">Valence</text>
-                        <text x="50" y="145" text-anchor="middle" font-weight="bold" fill="#dc2626">Band</text>
-                        <text x="50" y="190" text-anchor="middle" font-weight="bold">Overlap</text>
-                        <text x="50" y="210" text-anchor="middle" font-weight="bold" class="text-lg">Conductor</text>
-                    </g>
-
-                    <g transform="translate(250, 20)">
-                        <rect x="0" y="20" width="100" height="60" fill="#bae6fd" stroke="#0284c7" stroke-width="2" />
-                        <text x="50" y="55" text-anchor="middle" font-weight="bold" fill="#0284c7">CB</text>
-
-                        <line x1="0" y1="80" x2="100" y2="80" stroke="#94a3b8" stroke-dasharray="4" />
-                        <line x1="0" y1="120" x2="100" y2="120" stroke="#94a3b8" stroke-dasharray="4" />
-                        <path d="M 110 80 L 110 120" stroke="black" marker-start="url(#arrowhead)"
-                            marker-end="url(#arrowhead)" />
-                        <text x="120" y="105" font-size="12">Eg ≈ 1eV</text>
-
-                        <rect x="0" y="120" width="100" height="60" fill="#fca5a5" stroke="#dc2626" stroke-width="2" />
-                        <text x="50" y="155" text-anchor="middle" font-weight="bold" fill="#dc2626">VB</text>
-                        <text x="50" y="210" text-anchor="middle" font-weight="bold"
-                            class="text-lg">Semiconductor</text>
-                    </g>
-
-                    <g transform="translate(450, 20)">
-                        <rect x="0" y="20" width="100" height="40" fill="#bae6fd" stroke="#0284c7" stroke-width="2" />
-                        <text x="50" y="45" text-anchor="middle" font-weight="bold" fill="#0284c7">CB</text>
-
-                        <line x1="0" y1="60" x2="100" y2="60" stroke="#94a3b8" stroke-dasharray="4" />
-                        <line x1="0" y1="140" x2="100" y2="140" stroke="#94a3b8" stroke-dasharray="4" />
-                        <path d="M 110 60 L 110 140" stroke="black" marker-start="url(#arrowhead)"
-                            marker-end="url(#arrowhead)" />
-                        <text x="120" y="105" font-size="12">Eg > 3eV</text>
-
-                        <rect x="0" y="140" width="100" height="40" fill="#fca5a5" stroke="#dc2626" stroke-width="2" />
-                        <text x="50" y="165" text-anchor="middle" font-weight="bold" fill="#dc2626">VB</text>
-                        <text x="50" y="210" text-anchor="middle" font-weight="bold" class="text-lg">Insulator</text>
-                    </g>
-
-                    <defs>
-                        <marker id="arrowhead" markerWidth="5" markerHeight="4" refX="2.5" refY="2" orient="auto">
-                            <polygon points="0 0, 5 2, 0 4" fill="black" />
-                        </marker>
-                    </defs>
-                </svg>
-            </div>
-        </div>
-
-        <div
-            class="question-card bg-white dark:bg-slate-800 p-6 md:p-8 rounded-2xl shadow-sm border dark:border-slate-700 border-slate-100 dark:border-slate-700 flex flex-col md:flex-row gap-8">
-            <div class="flex-1">
-                <h2 class="text-xl font-bold text-indigo-700 dark:text-indigo-300 mb-4">4. Doping Ratio</h2>
-                <p>The standard doping ratio for an extrinsic semiconductor is usually <strong>1 impurity atom per
-                        $10^6$ to $10^8$ semiconductor atoms</strong>. <br><br>Even this tiny ratio drastically
-                    increases the conductivity of the material by providing a massive number of free charge carriers.
-                </p>
-            </div>
-            <div class="flex-1 bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border dark:border-slate-700 border-slate-200 dark:border-slate-700">
-                <h2 class="text-xl font-bold text-indigo-700 dark:text-indigo-300 mb-4">5. Impurity Atoms in 1 Mole of Si</h2>
-                <p><strong>Given:</strong> 1 mole of Silicon atoms.<br>
-                    Number of atoms in 1 mole = Avogadro's Number = $6.022 \times 10^{23}$ atoms.</p>
-                <p>Assuming a standard doping ratio of 1 impurity atom for every $10^7$ silicon atoms ($1:10^7$):</p>
-                <p class="font-bold mt-2">Calculation:</p>
-                <p>$$ \text{Impurity atoms} = \frac{6.022 \times 10^{23}}{10^7} = 6.022 \times 10^{16} \text{ atoms} $$
-                </p>
-            </div>
-        </div>
-
-        <div class="question-card bg-white dark:bg-slate-800 p-6 md:p-8 rounded-2xl shadow-sm border dark:border-slate-700 border-slate-100 dark:border-slate-700">
-            <h2 class="text-xl font-bold text-indigo-700 dark:text-indigo-300 mb-4">6. Fermi Level ($E_f$) Positions</h2>
-            <ul class="list-disc pl-6 mb-6">
-                <li><strong>Intrinsic Semiconductor:</strong> The Fermi level lies exactly in the middle of the
-                    forbidden gap. ($E_f \approx \frac{E_c + E_v}{2}$)</li>
-                <li><strong>N-Type Semiconductor:</strong> Due to excess electrons from donor impurities, the Fermi
-                    level shifts upwards, lying just <strong>below the conduction band</strong> ($E_c$).</li>
-                <li><strong>P-Type Semiconductor:</strong> Due to excess holes from acceptor impurities, the Fermi level
-                    shifts downwards, lying just <strong>above the valence band</strong> ($E_v$).</li>
-            </ul>
-
-            <div class="flex justify-center bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border dark:border-slate-700 border-slate-200 dark:border-slate-700 overflow-x-auto">
-                <svg width="650" height="200" viewBox="0 0 650 200" xmlns="http://www.w3.org/2000/svg">
-                    <g transform="translate(20, 20)">
-                        <text x="60" y="15" text-anchor="middle" font-weight="bold">Intrinsic (Pure)</text>
-                        <rect x="0" y="30" width="120" height="20" fill="#bae6fd" stroke="#0284c7" />
-                        <text x="-25" y="45" font-size="14">Ec</text>
-
-                        <line x1="-10" y1="80" x2="130" y2="80" stroke="#16a34a" stroke-width="2"
-                            stroke-dasharray="6,4" />
-                        <text x="-25" y="85" font-size="14" font-weight="bold" fill="#16a34a">Ef</text>
-
-                        <rect x="0" y="110" width="120" height="20" fill="#fca5a5" stroke="#dc2626" />
-                        <text x="-25" y="125" font-size="14">Ev</text>
-                    </g>
-
-                    <g transform="translate(250, 20)">
-                        <text x="60" y="15" text-anchor="middle" font-weight="bold">N-Type</text>
-                        <rect x="0" y="30" width="120" height="20" fill="#bae6fd" stroke="#0284c7" />
-                        <text x="-25" y="45" font-size="14">Ec</text>
-
-                        <line x1="-10" y1="60" x2="130" y2="60" stroke="#16a34a" stroke-width="2"
-                            stroke-dasharray="6,4" />
-                        <text x="-25" y="65" font-size="14" font-weight="bold" fill="#16a34a">Ef</text>
-
-                        <rect x="0" y="110" width="120" height="20" fill="#fca5a5" stroke="#dc2626" />
-                        <text x="-25" y="125" font-size="14">Ev</text>
-                    </g>
-
-                    <g transform="translate(480, 20)">
-                        <text x="60" y="15" text-anchor="middle" font-weight="bold">P-Type</text>
-                        <rect x="0" y="30" width="120" height="20" fill="#bae6fd" stroke="#0284c7" />
-                        <text x="-25" y="45" font-size="14">Ec</text>
-
-                        <line x1="-10" y1="100" x2="130" y2="100" stroke="#16a34a" stroke-width="2"
-                            stroke-dasharray="6,4" />
-                        <text x="-25" y="105" font-size="14" font-weight="bold" fill="#16a34a">Ef</text>
-
-                        <rect x="0" y="110" width="120" height="20" fill="#fca5a5" stroke="#dc2626" />
-                        <text x="-25" y="125" font-size="14">Ev</text>
-                    </g>
-                </svg>
-            </div>
-        </div>
-
-        <div class="question-card bg-white dark:bg-slate-800 p-6 md:p-8 rounded-2xl shadow-sm border dark:border-slate-700 border-slate-100 dark:border-slate-700">
-            <h2 class="text-xl font-bold text-indigo-700 dark:text-indigo-300 mb-4">7. Derivation of Einstein Equation (Relation)</h2>
-            <p class="mb-4">The Einstein relation connects the diffusion constant ($D$) and mobility ($\mu$) of charge
-                carriers. We derive this by considering a semiconductor at thermal equilibrium.</p>
-
-            <div class="bg-slate-50 dark:bg-slate-900 p-6 rounded-xl border dark:border-slate-700 border-slate-200 dark:border-slate-700 font-serif overflow-x-auto">
-                <p><strong>Step 1: Net current at equilibrium is zero.</strong></p>
-                <p>Under non-uniform doping at thermal equilibrium, there is a built-in electric field $E$. The net
-                    current density for electrons ($J_n$) must be zero. Drift current equals and opposes diffusion
-                    current.</p>
-                <p>$$ J_n = J_{\text{drift}} + J_{\text{diff}} = 0 $$</p>
-                <p>$$ n q \mu_n E + q D_n \frac{dn}{dx} = 0 \quad \Rightarrow \quad \mu_n E n = - D_n \frac{dn}{dx} $$
-                </p>
-
-                <p class="mt-4"><strong>Step 2: Relate Electric Field to Potential.</strong></p>
-                <p>Electric field $E = - \frac{dV}{dx}$, where $V$ is the electric potential.</p>
-                <p>$$ - \mu_n n \frac{dV}{dx} = - D_n \frac{dn}{dx} \quad \Rightarrow \quad \frac{\mu_n}{D_n} dV =
-                    \frac{dn}{n} \quad \text{--- (Eq. 1)} $$</p>
-
-                <p class="mt-4"><strong>Step 3: Use Maxwell-Boltzmann Statistics.</strong></p>
-                <p>The electron concentration $n$ in a potential field $V$ is given by classical thermodynamics
-                    (Boltzmann distribution):</p>
-                <p>$$ n = n_0 e^{\frac{qV}{kT}} $$</p>
-                <p>Differentiating both sides with respect to $V$:</p>
-                <p>$$ dn = n_0 \cdot \frac{q}{kT} e^{\frac{qV}{kT}} dV $$</p>
-                <p>Substitute $n$ back into the equation:</p>
-                <p>$$ dn = n \frac{q}{kT} dV \quad \Rightarrow \quad \frac{dn}{n} = \frac{q}{kT} dV \quad \text{--- (Eq.
-                    2)} $$</p>
-
-                <p class="mt-4"><strong>Step 4: Equate Eq. 1 and Eq. 2.</strong></p>
-                <p>$$ \frac{\mu_n}{D_n} dV = \frac{q}{kT} dV $$</p>
-                <div class="bg-indigo-100 p-4 rounded text-center my-4 font-bold text-lg">
-                    $$ \frac{D_n}{\mu_n} = \frac{kT}{q} = V_T $$
-                </div>
-                <p>Similarly, for holes: $\frac{D_p}{\mu_p} = \frac{kT}{q}$. <br>Here, $k$ is Boltzmann's constant, $T$
-                    is absolute temperature, $q$ is charge, and $V_T$ is the thermal voltage (~26mV at room temp).</p>
-            </div>
-        </div>
-
-        <div class="question-card bg-white dark:bg-slate-800 p-6 md:p-8 rounded-2xl shadow-sm border dark:border-slate-700 border-slate-100 dark:border-slate-700">
-            <h2 class="text-xl font-bold text-indigo-700 dark:text-indigo-300 mb-4">8. Hall Effect</h2>
-            <p><strong>Definition:</strong> When a current-carrying semiconductor (or conductor) is placed in a
-                perpendicular magnetic field, a voltage is developed across the specimen in a direction perpendicular to
-                both the current and the magnetic field. This phenomenon is called the Hall Effect.</p>
-
-            <div class="flex flex-col md:flex-row gap-6 mt-6">
-                <div class="flex-1">
-                    <h3 class="font-bold mb-2">Formulas</h3>
-                    <p>Hall Voltage: $$ V_H = \frac{B \cdot I \cdot R_H}{t} $$</p>
-                    <p>Where $B$ = Magnetic field, $I$ = Current, $t$ = thickness.</p>
-                    <p><strong>Hall Coefficient ($R_H$):</strong> $$ R_H = \frac{1}{n q} \text{ (for electrons)} \quad
-                        \text{or} \quad \frac{1}{p q} \text{ (for holes)} $$</p>
-                </div>
-                <div class="flex-1">
-                    <h3 class="font-bold mb-2">Physical Significance of $R_H$</h3>
-                    <ul class="list-disc pl-5">
-                        <li><strong>Determines Carrier Type:</strong> If $R_H$ is negative, it's an N-type material
-                            (electrons). If positive, P-type (holes).</li>
-                        <li><strong>Determines Carrier Concentration:</strong> $n = \frac{1}{q |R_H|}$. Knowing $R_H$
-                            allows us to find exactly how many charge carriers exist per unit volume.</li>
-                        <li><strong>Determines Mobility:</strong> Using conductivity $\sigma$, mobility $\mu = \sigma
-                            |R_H|$.</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="flex justify-center bg-slate-50 dark:bg-slate-900 p-6 rounded-xl border dark:border-slate-700 border-slate-200 dark:border-slate-700 mt-4 overflow-x-auto">
-                <svg width="400" height="250" viewBox="0 0 400 250" xmlns="http://www.w3.org/2000/svg">
-                    <polygon points="100,150 250,150 300,100 150,100" fill="#bae6fd" stroke="#0284c7"
-                        stroke-width="2" />
-                    <polygon points="100,150 150,100 150,180 100,230" fill="#7dd3fc" stroke="#0284c7"
-                        stroke-width="2" />
-                    <polygon points="100,230 250,230 300,180 150,180" fill="#38bdf8" stroke="#0284c7"
-                        stroke-width="2" />
-                    <polygon points="250,150 300,100 300,180 250,230" fill="#0ea5e9" stroke="#0284c7"
-                        stroke-width="2" />
-
-                    <line x1="50" y1="190" x2="90" y2="190" stroke="red" stroke-width="3"
-                        marker-end="url(#arrowhead-red)" />
-                    <text x="30" y="195" fill="red" font-weight="bold" font-size="18">I</text>
-
-                    <line x1="200" y1="50" x2="200" y2="90" stroke="green" stroke-width="3"
-                        marker-end="url(#arrowhead-green)" />
-                    <text x="210" y="60" fill="green" font-weight="bold" font-size="18">B</text>
-
-                    <line x1="250" y1="190" x2="330" y2="190" stroke="purple" stroke-width="2" stroke-dasharray="4" />
-                    <line x1="150" y1="140" x2="330" y2="140" stroke="purple" stroke-width="2" stroke-dasharray="4" />
-                    <path d="M 320 145 L 320 185" stroke="purple" stroke-width="2" marker-start="url(#arrowhead-purple)"
-                        marker-end="url(#arrowhead-purple)" />
-                    <text x="330" y="170" fill="purple" font-weight="bold" font-size="18">VH</text>
-
-                    <defs>
-                        <marker id="arrowhead-red" markerWidth="5" markerHeight="4" refX="2.5" refY="2" orient="auto">
-                            <polygon points="0 0, 5 2, 0 4" fill="red" />
-                        </marker>
-                        <marker id="arrowhead-green" markerWidth="5" markerHeight="4" refX="2.5" refY="2" orient="auto">
-                            <polygon points="0 0, 5 2, 0 4" fill="green" />
-                        </marker>
-                        <marker id="arrowhead-purple" markerWidth="5" markerHeight="4" refX="2.5" refY="2"
-                            orient="auto">
-                            <polygon points="0 0, 5 2, 0 4" fill="purple" />
-                        </marker>
-                    </defs>
-                </svg>
-            </div>
-        </div>
-
-        <div class="question-card bg-white dark:bg-slate-800 p-6 md:p-8 rounded-2xl shadow-sm border dark:border-slate-700 border-slate-100 dark:border-slate-700">
-            <h2 class="text-xl font-bold text-indigo-700 dark:text-indigo-300 mb-4">9. Standard Class Numericals (Important Types)</h2>
-            <div class="space-y-6">
-                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg border dark:border-slate-700 border-slate-200 dark:border-slate-700">
-                    <h3 class="font-bold text-lg mb-2">Type 1: Mass Action Law ($np = n_i^2$)</h3>
-                    <p><strong>Q:</strong> Pure Silicon has an intrinsic carrier concentration of $1.5 \times 10^{10}
-                        \text{ cm}^{-3}$. It is doped with Phosphorus to a concentration of $10^{16} \text{ cm}^{-3}$.
-                        Find the electron and hole concentrations.</p>
-                    <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
-                        <strong>Solution:</strong><br>
-                        Phosphorus is a donor (N-type), so $N_D = 10^{16} \text{ cm}^{-3}$.<br>
-                        Majority carriers (electrons) $n \approx N_D = 10^{16} \text{ cm}^{-3}$.<br>
-                        Using Mass Action Law: $p = \frac{n_i^2}{n} = \frac{(1.5 \times 10^{10})^2}{10^{16}} =
-                        \frac{2.25 \times 10^{20}}{10^{16}} = 2.25 \times 10^4 \text{ cm}^{-3}$ (minority holes).
-                    </p>
-                </div>
-
-                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg border dark:border-slate-700 border-slate-200 dark:border-slate-700">
-                    <h3 class="font-bold text-lg mb-2">Type 2: Conductivity ($\sigma$)</h3>
-                    <p><strong>Q:</strong> Calculate the conductivity of intrinsic Si at room temp. Given $n_i = 1.5
-                        \times 10^{10} \text{ cm}^{-3}$, $\mu_n = 1300 \text{ cm}^2/\text{Vs}$, $\mu_p = 500 \text{
-                        cm}^2/\text{Vs}$, $q = 1.6 \times 10^{-19} \text{ C}$.</p>
-                    <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
-                        <strong>Solution:</strong><br>
-                        $\sigma_i = n_i q (\mu_n + \mu_p)$<br>
-                        $\sigma_i = (1.5 \times 10^{10}) \times (1.6 \times 10^{-19}) \times (1300 + 500)$<br>
-                        $\sigma_i = 2.4 \times 10^{-9} \times 1800 = 4.32 \times 10^{-6} \text{ (\Omega cm)}^{-1}$
-                    </p>
-                </div>
-
-                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-lg border dark:border-slate-700 border-slate-200 dark:border-slate-700">
-                    <h3 class="font-bold text-lg mb-2">Type 3: Hall Effect</h3>
-                    <p><strong>Q:</strong> An N-type Ge sample has a donor density of $10^{21} \text{ m}^{-3}$. Find its
-                        Hall coefficient.</p>
-                    <p class="mt-2 text-sm text-slate-700 dark:text-slate-300">
-                        <strong>Solution:</strong><br>
-                        $n \approx N_D = 10^{21} \text{ m}^{-3}$.<br>
-                        $R_H = -\frac{1}{nq} = -\frac{1}{10^{21} \times 1.6 \times 10^{-19}} = -\frac{1}{160} = -6.25
-                        \times 10^{-3} \text{ m}^3/\text{C}$.
-                    </p>
-                </div>
-            </div>
-        </div>
-
-        <div class="question-card bg-white dark:bg-slate-800 p-6 md:p-8 rounded-2xl shadow-sm border dark:border-slate-700 border-slate-100 dark:border-slate-700">
-            <h2 class="text-xl font-bold text-indigo-700 dark:text-indigo-300 mb-4">10. PN Junction Definitions</h2>
-            <ul class="space-y-4">
-                <li><strong class="text-blue-700">Space Charge (Region):</strong> Also known as the depletion region. It
-                    is the region near the PN junction interface stripped of free charge carriers (electrons and holes),
-                    leaving behind a 'space charge' of fixed, immobile positive (donor) and negative (acceptor) ions.
-                </li>
-                <li><strong class="text-blue-700">Depletion Region:</strong> The specific zone around the junction where
-                    mobile charge carriers have been depleted via recombination. It acts like an insulator blocking
-                    further spontaneous charge flow.</li>
-                <li><strong class="text-blue-700">Barrier Potential ($V_B$):</strong> The electric potential difference
-                    established across the depletion region due to the exposed immobile ions. It opposes further
-                    diffusion of majority carriers across the junction. (~0.7V for Si, ~0.3V for Ge).</li>
-                <li><strong class="text-blue-700">Knee Voltage (Cut-in/Threshold Voltage):</strong> The minimum forward
-                    bias voltage required to overcome the barrier potential and allow significant forward current to
-                    flow through the diode.</li>
-            </ul>
-        </div>
-
-        <div class="question-card bg-white dark:bg-slate-800 p-6 md:p-8 rounded-2xl shadow-sm border dark:border-slate-700 border-slate-100 dark:border-slate-700">
-            <h2 class="text-xl font-bold text-indigo-700 dark:text-indigo-300 mb-4">11. I-V Characteristics Graph (Forward & Reverse Bias)
-            </h2>
-            <div class="flex flex-col md:flex-row items-center gap-8">
-                <div class="flex-1 text-sm space-y-3">
-                    <p><strong>Forward Bias (Quadrant I):</strong> Current is nearly zero until the applied voltage
-                        exceeds the <em>Knee Voltage</em> (0.7V for Si). After that, current increases exponentially
-                        with voltage.</p>
-                    <p><strong>Reverse Bias (Quadrant III):</strong> A very small, constant Reverse Saturation Current
-                        ($I_0$) flows due to minority carriers. If voltage is increased too much, <em>Breakdown</em>
-                        occurs (Zener or Avalanche), and current increases sharply.</p>
-                </div>
-
-                <div class="flex-1 bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border dark:border-slate-700 border-slate-200 dark:border-slate-700 overflow-x-auto">
-                    <svg width="400" height="300" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
-                        <g stroke="#e2e8f0" stroke-width="1">
-                            <line x1="0" y1="50" x2="400" y2="50" />
-                            <line x1="0" y1="100" x2="400" y2="100" />
-                            <line x1="0" y1="200" x2="400" y2="200" />
-                            <line x1="0" y1="250" x2="400" y2="250" />
-                            <line x1="100" y1="0" x2="100" y2="300" />
-                            <line x1="300" y1="0" x2="300" y2="300" />
-                        </g>
-
-                        <line x1="0" y1="150" x2="400" y2="150" stroke="black" stroke-width="2" />
-                        <line x1="200" y1="0" x2="200" y2="300" stroke="black" stroke-width="2" />
-
-                        <text x="370" y="140" font-weight="bold">+V (Volts)</text>
-                        <text x="10" y="140" font-weight="bold">-V</text>
-                        <text x="210" y="20" font-weight="bold">+I (mA)</text>
-                        <text x="210" y="290" font-weight="bold">-I (µA)</text>
-
-                        <path d="M 200 150 L 250 150 C 270 150, 275 145, 280 120 Q 290 20, 310 10" stroke="blue"
-                            stroke-width="3" fill="none" />
-
-                        <line x1="270" y1="145" x2="270" y2="155" stroke="black" stroke-width="2" />
-                        <text x="240" y="170" font-size="12">Knee Volts (0.7V)</text>
-
-                        <path d="M 200 150 L 195 155 L 60 155 C 55 155, 52 160, 50 180 L 45 290" stroke="red"
-                            stroke-width="3" fill="none" />
-
-                        <line x1="50" y1="145" x2="50" y2="155" stroke="black" stroke-width="2" />
-                        <text x="20" y="135" font-size="12">V_br</text>
-                        <text x="80" y="170" font-size="12" fill="red">Leakage Current</text>
-                        <text x="5" y="250" font-size="12" fill="red">Breakdown</text>
-                    </svg>
-                </div>
-            </div>
-        </div>
-
-        <div class="question-card bg-white dark:bg-slate-800 p-6 md:p-8 rounded-2xl shadow-sm border dark:border-slate-700 border-slate-100 dark:border-slate-700">
-            <h2 class="text-xl font-bold text-indigo-700 dark:text-indigo-300 mb-4">12. Band Diagrams for PN Junction</h2>
-            <div class="flex flex-col gap-8">
-                <div class="bg-slate-50 dark:bg-slate-900 p-4 rounded-xl border dark:border-slate-700 border-slate-200 dark:border-slate-700 overflow-x-auto">
-                    <h3 class="font-bold mb-2 text-center text-lg">1. Unbiased (Equilibrium)</h3>
-                    <p class="text-sm text-center mb-4">Fermi level ($E_f$) is constant across the junction. Built-in
-                        potential barrier $qV_0$ prevents net flow.</p>
-                    <div class="flex justify-center">
-                        <svg width="500" height="180" viewBox="0 0 500 180" xmlns="http://www.w3.org/2000/svg">
-                            <line x1="50" y1="90" x2="450" y2="90" stroke="#16a34a" stroke-width="2"
-                                stroke-dasharray="6,4" />
-                            <text x="20" y="95" fill="#16a34a" font-weight="bold">Ef</text>
-
-                            <text x="100" y="20" font-weight="bold" font-size="18">P-Type</text>
-                            <line x1="50" y1="40" x2="200" y2="40" stroke="#0284c7" stroke-width="3" />
-                            <line x1="50" y1="110" x2="200" y2="110" stroke="#dc2626" stroke-width="3" /> <text x="350"
-                                y="20" font-weight="bold" font-size="18">N-Type</text>
-                            <line x1="300" y1="80" x2="450" y2="80" stroke="#0284c7" stroke-width="3" />
-                            <line x1="300" y1="150" x2="450" y2="150" stroke="#dc2626" stroke-width="3" />
-                            <path d="M 200 40 C 250 40, 250 80, 300 80" stroke="#0284c7" stroke-width="3" fill="none" />
-                            <path d="M 200 110 C 250 110, 250 150, 300 150" stroke="#dc2626" stroke-width="3"
-                                fill="none" />
-
-                            <line x1="300" y1="40" x2="300" y2="80" stroke="black" marker-start="url(#arrowhead-black)"
-                                marker-end="url(#arrowhead-black)" />
-                            <text x="310" y="65" font-size="12">qV₀ (Barrier)</text>
+                <!-- Added Band Gap Diagrams -->
+                <div class="flex flex-col sm:flex-row justify-center gap-8 my-6 bg-slate-50 p-4 rounded-xl border border-slate-200">
+                    <div class="text-center">
+                        <svg width="120" height="150" viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="10" y="20" width="100" height="50" fill="#bae6fd" stroke="#0284c7" stroke-width="2"/>
+                            <rect x="10" y="50" width="100" height="50" fill="#fca5a5" stroke="#dc2626" stroke-width="2" opacity="0.8"/>
+                            <text x="60" y="40" text-anchor="middle" font-weight="bold" fill="#0284c7" font-size="12">CB</text>
+                            <text x="60" y="90" text-anchor="middle" font-weight="bold" fill="#dc2626" font-size="12">VB</text>
+                            <text x="60" y="65" text-anchor="middle" font-weight="bold" font-size="10">Overlap</text>
+                            <text x="60" y="130" text-anchor="middle" font-weight="bold">Conductor</text>
+                        </svg>
+                    </div>
+                    <div class="text-center">
+                        <svg width="120" height="150" viewBox="0 0 120 150" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="10" y="20" width="100" height="40" fill="#bae6fd" stroke="#0284c7" stroke-width="2"/>
+                            <text x="60" y="45" text-anchor="middle" font-weight="bold" fill="#0284c7" font-size="12">CB</text>
+                            <line x1="10" y1="60" x2="110" y2="60" stroke="#94a3b8" stroke-dasharray="4"/>
+                            <line x1="10" y1="80" x2="110" y2="80" stroke="#94a3b8" stroke-dasharray="4"/>
+                            <path d="M 120 60 L 120 80" stroke="black" marker-start="url(#arrowhead)" marker-end="url(#arrowhead)"/>
+                            <text x="60" y="73" text-anchor="middle" font-size="10">Eg ≈ 1eV</text>
+                            <rect x="10" y="80" width="100" height="40" fill="#fca5a5" stroke="#dc2626" stroke-width="2"/>
+                            <text x="60" y="105" text-anchor="middle" font-weight="bold" fill="#dc2626" font-size="12">VB</text>
+                            <text x="60" y="140" text-anchor="middle" font-weight="bold">Semiconductor</text>
+                            <defs>
+                                <marker id="arrowhead" markerWidth="5" markerHeight="4" refX="2.5" refY="2" orient="auto"><polygon points="0 0, 5 2, 0 4" fill="black"/></marker>
+                            </defs>
                         </svg>
                     </div>
                 </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 text-sm">
+                        <strong class="text-orange-600">Conductors:</strong> VB and CB overlap ($E_g = 0$). Electrons freely move to the CB even at low temperatures. Excellent conductivity.
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 text-sm">
+                        <strong class="text-orange-600">Semiconductors:</strong> Small forbidden gap ($E_g \approx 1.1\text{eV}$ for Si, $0.7\text{eV}$ for Ge). Acts as an insulator at 0K, but conducts at room temp.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Topic 3 & 4 -->
+            <div class="border-t border-slate-100 pt-6">
+                <h3 class="text-xl font-bold text-orange-700 mb-2">3 & 4. Fermi Level, 0K Insulator Behavior, and Doping Levels</h3>
+                <p class="text-sm text-slate-700 mb-3"><strong>Fermi Level ($E_F$):</strong> The highest energy state occupied by electrons at absolute zero ($0K$). At $T > 0K$, it represents the energy level with exactly a 50% probability of being occupied by an electron.</p>
+                
+                <div class="bg-orange-50 p-5 rounded-xl border-l-4 border-orange-500 text-sm mb-4">
+                    <strong class="block text-lg mb-2">Why are all semiconductors insulators at absolute zero ($0K$)?</strong>
+                    <p>At $0K$, the thermal energy ($kT$) available to the system is exactly zero. Consequently, no covalent bonds are broken. The Valence Band is completely full, and the Conduction Band is completely empty. Because there are no free electrons in the CB and no holes in the VB to carry charge, the material behaves as a perfect insulator.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <strong class="text-orange-600">Donor Level (N-Type):</strong> Created by adding Pentavalent impurities (P, As, Sb). Introduces a discrete energy level just <em>below</em> the CB ($E_c - 0.01\text{eV}$). It easily "donates" its 5th extra electron to the CB at room temp. $E_F$ shifts up near the CB.
+                    </div>
+                    <div class="bg-slate-50 p-4 rounded-lg border border-slate-200">
+                        <strong class="text-orange-600">Acceptor Level (P-Type):</strong> Created by adding Trivalent impurities (B, Al, Ga). Introduces a discrete energy level just <em>above</em> the VB ($E_v + 0.01\text{eV}$). It easily "accepts" electrons from the VB, leaving behind holes. $E_F$ shifts down near the VB.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Topic 6 -->
+            <div class="border-t border-slate-100 pt-6">
+                <h3 class="text-xl font-bold text-orange-700 mb-2">6. Hall Effect: Derivation & High Weightage Analysis</h3>
+                <p class="text-sm text-slate-700 mb-3"><strong>Definition:</strong> When a current-carrying semiconductor is placed in a transverse magnetic field, an electric field (Hall voltage) is generated perpendicular to both the current and the magnetic field.</p>
+                
+                <div class="math-box text-sm">
+                    <strong>Derivation: Equilibrium of Forces</strong><br>
+                    Let a semiconductor slab of width $w$ and thickness $d$ carry current $I$ (drift velocity $v_d$) in the presence of a perpendicular magnetic field $B$.
+                    <ol class="list-decimal pl-6 mt-2 space-y-2">
+                        <li>The magnetic Lorentz force on charge carrier $q$ is: $$F_m = q \cdot v_d \cdot B$$</li>
+                        <li>This force deflects charges to one face of the slab, creating a transverse Hall Electric Field ($E_H$). The resulting electric force is: $$F_e = q \cdot E_H$$</li>
+                        <li>At equilibrium, charge accumulation stops when the electric force perfectly balances the magnetic force: $$F_e = F_m \implies q \cdot E_H = q \cdot v_d \cdot B \implies E_H = v_d \cdot B$$</li>
+                        <li>Current density $J$ is related to drift velocity by $J = nqv_d \implies v_d = \frac{J}{nq}$</li>
+                        <li>Substitute $v_d$ into the equilibrium equation: $$E_H = \frac{J \cdot B}{nq}$$</li>
+                        <li>We know $E_H = \frac{V_H}{w}$ (where $V_H$ is Hall Voltage) and $J = \frac{I}{A} = \frac{I}{w \cdot d}$. Substitute these: $$\frac{V_H}{w} = \frac{I \cdot B}{n \cdot q \cdot w \cdot d} \implies \mathbf{V_H = \frac{B \cdot I}{n \cdot q \cdot d}}$$</li>
+                        <li>The term $\frac{1}{nq}$ is called the <strong>Hall Coefficient ($R_H$)</strong>. So, $V_H = \frac{R_H \cdot B \cdot I}{d}$.</li>
+                    </ol>
+                </div>
+            </div>
+
+            <!-- Topic 7 & 8 -->
+            <div class="border-t border-slate-100 pt-6">
+                <h3 class="text-xl font-bold text-orange-700 mb-2">7 & 8. Einstein Relationship & Drift/Diffusion</h3>
+                <p class="text-sm text-slate-700 mb-2"><strong>Drift Current:</strong> Current caused by the movement of charge carriers under the influence of an externally applied <em>Electric Field</em>.</p>
+                <p class="text-sm text-slate-700 mb-3"><strong>Diffusion Current:</strong> Current caused by the natural movement of charge carriers from a region of <em>Higher Concentration</em> to a region of <em>Lower Concentration</em> (concentration gradient), regardless of electric fields.</p>
+                <div class="bg-orange-50 p-4 rounded text-center font-bold text-orange-800">
+                    Einstein Relationship: $\frac{D_n}{\mu_n} = \frac{D_p}{\mu_p} = \frac{kT}{q} = V_T$
+                </div>
+                <p class="text-xs text-slate-500 mt-2 text-center">Where $D$ = Diffusion constant, $\mu$ = Mobility, $V_T$ = Thermal Voltage (~26mV at Room Temp).</p>
             </div>
         </div>
 
-        <div class="question-card bg-white dark:bg-slate-800 p-6 md:p-8 rounded-2xl shadow-sm border dark:border-slate-700 border-slate-100 dark:border-slate-700">
-            <h2 class="text-2xl font-bold text-indigo-700 dark:text-indigo-300 mb-6">13. Advanced Numericals (Practice Set)</h2>
-            <div class="space-y-6">
+        <!-- ========================================== -->
+        <!-- MODULE 2: DIODES & RECTIFIERS              -->
+        <!-- ========================================== -->
+        <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 space-y-8">
+            <h2 class="text-3xl font-bold text-slate-800 border-b-4 border-orange-400 inline-block pb-2">Module 2: Diodes & Rectifiers</h2>
 
-                <div class="bg-blue-50 dark:bg-blue-900/30 p-5 rounded-lg border dark:border-slate-700 border-blue-100 dark:border-blue-800 shadow-sm">
-                    <h3 class="font-bold text-lg mb-2 text-indigo-800 dark:text-indigo-200">1. Conductivity of Pure Germanium</h3>
-                    <p class="text-sm mb-3"><strong>Question:</strong> Determine the conductivity of pure germanium at
-                        300K. Assume that at 300K, intrinsic carrier concentration is $2.5 \times 10^{19} \text{
-                        m}^{-3}$, electron mobility = $0.375 \text{ m}^2/\text{Vs}$, and hole mobility = $0.175 \text{
-                        m}^2/\text{Vs}$.</p>
-                    <div class="text-sm text-slate-800 dark:text-slate-200 border-t border-blue-200 dark:border-blue-700 pt-3">
-                        <p><strong>Given:</strong> $n_i = 2.5 \times 10^{19} \text{ m}^{-3}$, $\mu_e = 0.375 \text{
-                            m}^2/\text{Vs}$, $\mu_h = 0.175 \text{ m}^2/\text{Vs}$, $q = 1.6 \times 10^{-19} \text{ C}$.
-                        </p>
-                        <p class="mt-2"><strong>Formula:</strong> $\sigma_i = n_i q (\mu_e + \mu_h)$</p>
-                        <p class="mt-2"><strong>Calculation:</strong></p>
-                        <p>$$ \sigma_i = (2.5 \times 10^{19}) \times (1.6 \times 10^{-19}) \times (0.375 + 0.175) $$</p>
-                        <p>$$ \sigma_i = 4.0 \times 0.55 = \mathbf{2.2 \text{ (\Omega \cdot m)}^{-1}} \text{ (or S/m)}
-                            $$</p>
+            <!-- Topic 1 & 2 -->
+            <div>
+                <h3 class="text-xl font-bold text-orange-700 mb-2">1 & 2. P-N Junction, Band Diagrams & Depletion Region</h3>
+                
+                <p class="text-sm text-slate-700 mb-3"><strong>Why is the P-side energy level higher than the N-side in an unbiased junction?</strong><br>
+                Before joining, the Fermi level ($E_F$) is near the Valence Band in P-type and near the Conduction Band in N-type. When joined, the system must reach thermal equilibrium, meaning a single, constant $E_F$ across the whole device. To align the lower $E_F$ of the P-type with the higher $E_F$ of the N-type, the entire energy band structure (VB and CB) of the P-side shifts upwards relative to the N-side. This shift creates a potential hill or <strong>Barrier Potential ($V_0$)</strong>.</p>
+                
+                <!-- Added PN Band SVG -->
+                <div class="flex justify-center bg-slate-50 p-4 rounded-xl border border-slate-200 mt-4 mb-4">
+                    <svg width="400" height="200" viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
+                        <line x1="20" y1="100" x2="380" y2="100" stroke="#16a34a" stroke-width="2" stroke-dasharray="6,4"/>
+                        <text x="25" y="95" fill="#16a34a" font-weight="bold">Ef (Constant)</text>
+                        <text x="80" y="25" font-weight="bold" font-size="16">P-Type</text>
+                        <line x1="20" y1="50" x2="150" y2="50" stroke="#0284c7" stroke-width="3"/> 
+                        <line x1="20" y1="120" x2="150" y2="120" stroke="#dc2626" stroke-width="3"/> 
+                        <text x="280" y="25" font-weight="bold" font-size="16">N-Type</text>
+                        <line x1="250" y1="80" x2="380" y2="80" stroke="#0284c7" stroke-width="3"/> 
+                        <line x1="250" y1="150" x2="380" y2="150" stroke="#dc2626" stroke-width="3"/> 
+                        <path d="M 150 50 C 200 50, 200 80, 250 80" stroke="#0284c7" stroke-width="3" fill="none"/>
+                        <path d="M 150 120 C 200 120, 200 150, 250 150" stroke="#dc2626" stroke-width="3" fill="none"/>
+                        <line x1="250" y1="50" x2="250" y2="80" stroke="black" marker-start="url(#arrowhead2)" marker-end="url(#arrowhead2)"/>
+                        <text x="260" y="70" font-size="12" font-weight="bold">qV₀ Barrier</text>
+                        <defs>
+                            <marker id="arrowhead2" markerWidth="5" markerHeight="4" refX="2.5" refY="2" orient="auto"><polygon points="0 0, 5 2, 0 4" fill="black"/></marker>
+                        </defs>
+                    </svg>
+                </div>
+
+                <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 mt-4 text-sm">
+                    <strong class="block text-lg mb-2 text-orange-800">Analysis of the Depletion Region & Immobile Ions</strong>
+                    <p>When the P and N materials meet, electrons diffuse from N to P, and holes diffuse from P to N. <br>
+                    <strong>Derivation/Reasoning for absence of mobile charges:</strong> As an electron leaves the N-side, it leaves behind a positively charged, fixed Donor Ion ($N_d^+$) locked in the crystal lattice. As a hole leaves the P-side, it leaves behind a negatively charged, fixed Acceptor Ion ($N_a^-$). <br><br>
+                    This exposes a layer of <strong>immobile space charge ions</strong>. These ions create an internal electric field directed from N to P. Mathematically, the drift current caused by this internal field perfectly cancels out the diffusion current ($J_{drift} + J_{diff} = 0$). This internal field sweeps away any mobile carriers that enter the region, completely "depleting" the area of free charge carriers.</p>
+                </div>
+            </div>
+
+            <!-- Rectifiers -->
+            <div class="border-t border-slate-100 pt-6">
+                <h3 class="text-xl font-bold text-orange-700 mb-2">4. Half-Wave (HW) & Full-Wave (FW) Rectifiers</h3>
+                <p class="text-sm text-slate-700 mb-4">A diode acts as a rectifier because it has very low resistance in forward bias (allows current) and near-infinite resistance in reverse bias (blocks current), enabling unidirectional current flow.</p>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 text-sm">
+                    <!-- HW Rectifier -->
+                    <div class="bg-orange-50 p-5 rounded-xl border border-orange-100">
+                        <h4 class="font-bold text-lg border-b border-orange-200 pb-2 mb-2">Half-Wave (HW) Rectifier</h4>
+                        <ul class="space-y-2">
+                            <li><strong>Operation:</strong> Conducts only during the positive half-cycle of AC.</li>
+                            <li><strong>RMS Current:</strong> $I_{rms} = \frac{I_m}{2}$</li>
+                            <li><strong>DC Current:</strong> $I_{dc} = \frac{I_m}{\pi}$</li>
+                            <li><strong>Efficiency Derivation:</strong> <br>
+                                $P_{dc} = I_{dc}^2 R_L = \frac{I_m^2}{\pi^2} R_L$<br>
+                                $P_{ac} = I_{rms}^2 (R_L+r_f) = \frac{I_m^2}{4} (R_L+r_f)$<br>
+                                $\eta = \frac{P_{dc}}{P_{ac}} = \frac{4}{\pi^2} \approx \mathbf{40.6\%}$
+                            </li>
+                            <li><strong>Ripple Factor ($\gamma$):</strong> 1.21 (121%)</li>
+                            <li><strong>PIV:</strong> $V_m$</li>
+                        </ul>
+                        
+                        <!-- Added HW Waveforms -->
+                        <div class="mt-4 bg-white p-3 rounded-lg border border-orange-100">
+                            <h5 class="text-center text-xs font-bold mb-1 text-slate-500">HW Waveforms</h5>
+                            <svg width="100%" height="80" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+                                <line x1="0" y1="20" x2="200" y2="20" stroke="#ccc" stroke-width="1"/>
+                                <line x1="0" y1="60" x2="200" y2="60" stroke="#ccc" stroke-width="1"/>
+                                <text x="2" y="15" font-size="8">AC In</text>
+                                <path d="M 30 20 Q 45 0, 60 20 T 90 20 T 120 20 T 150 20" fill="none" stroke="#64748b" stroke-width="1.5"/>
+                                <text x="2" y="55" font-size="8">DC Out</text>
+                                <path d="M 30 60 Q 45 40, 60 60 L 90 60 Q 105 40, 120 60 L 150 60" fill="none" stroke="#f97316" stroke-width="1.5"/>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- FW Rectifier -->
+                    <div class="bg-orange-50 p-5 rounded-xl border border-orange-100">
+                        <h4 class="font-bold text-lg border-b border-orange-200 pb-2 mb-2">Full-Wave (FW) Rectifier</h4>
+                        <ul class="space-y-2">
+                            <li><strong>Operation:</strong> Conducts during both positive and negative half-cycles (using Center-tap or Bridge).</li>
+                            <li><strong>RMS Current:</strong> $I_{rms} = \frac{I_m}{\sqrt{2}}$</li>
+                            <li><strong>DC Current:</strong> $I_{dc} = \frac{2I_m}{\pi}$</li>
+                            <li><strong>Efficiency Derivation:</strong> <br>
+                                $P_{dc} = I_{dc}^2 R_L = \frac{4I_m^2}{\pi^2} R_L$<br>
+                                $P_{ac} = I_{rms}^2 (R_L+r_f) = \frac{I_m^2}{2} (R_L+r_f)$<br>
+                                $\eta = \frac{P_{dc}}{P_{ac}} = \frac{8}{\pi^2} \approx \mathbf{81.2\%}$
+                            </li>
+                            <li><strong>Ripple Factor ($\gamma$):</strong> 0.48 (48%)</li>
+                            <li><strong>PIV (Center Tap):</strong> $2V_m$</li>
+                        </ul>
+                        
+                        <!-- Added FW Waveforms -->
+                        <div class="mt-4 bg-white p-3 rounded-lg border border-orange-100">
+                            <h5 class="text-center text-xs font-bold mb-1 text-slate-500">FW Waveforms</h5>
+                            <svg width="100%" height="80" viewBox="0 0 200 80" xmlns="http://www.w3.org/2000/svg">
+                                <line x1="0" y1="20" x2="200" y2="20" stroke="#ccc" stroke-width="1"/>
+                                <line x1="0" y1="60" x2="200" y2="60" stroke="#ccc" stroke-width="1"/>
+                                <text x="2" y="15" font-size="8">AC In</text>
+                                <path d="M 30 20 Q 45 0, 60 20 T 90 20 T 120 20 T 150 20" fill="none" stroke="#64748b" stroke-width="1.5"/>
+                                <text x="2" y="55" font-size="8">DC Out</text>
+                                <path d="M 30 60 Q 45 40, 60 60 Q 75 40, 90 60 Q 105 40, 120 60 Q 135 40, 150 60" fill="none" stroke="#f97316" stroke-width="1.5"/>
+                            </svg>
+                        </div>
                     </div>
                 </div>
 
-                <div class="bg-blue-50 dark:bg-blue-900/30 p-5 rounded-lg border dark:border-slate-700 border-blue-100 dark:border-blue-800 shadow-sm overflow-x-auto">
-                    <h3 class="font-bold text-lg mb-2 text-indigo-800 dark:text-indigo-200">2. Doped Germanium Conductivity & Resistivity
-                    </h3>
-                    <p class="text-sm mb-3"><strong>Question:</strong> Suppose a specimen of pure germanium is doped
-                        with 1 donor impurity atom in every $10^8$ germanium atoms. Find the conductivity and
-                        resistivity of doped germanium. Atomic weight of Ge = 72.6, density of Ge = 5320 kg/m$^3$,
-                        electron mobility at 300K is 0.375 m$^2$/Vs.</p>
-                    <div class="text-sm text-slate-800 dark:text-slate-200 border-t border-blue-200 dark:border-blue-700 pt-3">
-                        <p><strong>Step 1: Find total number of Ge atoms per $m^3$ ($N_{Ge}$)</strong></p>
-                        <p>Using Avogadro's number ($N_A = 6.022 \times 10^{23} \text{ atoms/mol}$):</p>
-                        <p>$$ N_{Ge} = \frac{\text{Density} \times N_A}{\text{Atomic Weight}} = \frac{5320 \times (6.022
-                            \times 10^{23})}{72.6 \times 10^{-3}} = 4.412 \times 10^{28} \text{ atoms/m}^3 $$</p>
-
-                        <p class="mt-3"><strong>Step 2: Find donor concentration ($N_D$)</strong></p>
-                        <p>$$ N_D = \frac{N_{Ge}}{10^8} = \frac{4.412 \times 10^{28}}{10^8} = 4.412 \times 10^{20}
-                            \text{ atoms/m}^3 $$</p>
-                        <p>Since it's an N-type semiconductor, electron concentration $n \approx N_D = 4.412 \times
-                            10^{20} \text{ m}^{-3}$.</p>
-
-                        <p class="mt-3"><strong>Step 3: Calculate Conductivity ($\sigma$)</strong></p>
-                        <p>$$ \sigma \approx n q \mu_e = (4.412 \times 10^{20}) \times (1.6 \times 10^{-19}) \times
-                            0.375 = \mathbf{26.47 \text{ (\Omega \cdot m)}^{-1}} $$</p>
-
-                        <p class="mt-3"><strong>Step 4: Calculate Resistivity ($\rho$)</strong></p>
-                        <p>$$ \rho = \frac{1}{\sigma} = \frac{1}{26.47} = \mathbf{0.0378 \text{ \Omega \cdot m}} $$</p>
-                    </div>
+                <div class="mt-6 bg-slate-50 p-4 rounded-lg text-sm">
+                    <strong>7. Capacitor Filter:</strong> A capacitor is connected in parallel with the load resistor ($R_L$). During the peak of the AC wave, the capacitor charges rapidly to $V_m$. When the AC voltage drops, the capacitor slowly discharges through $R_L$, providing current to the load when the diodes are off. This "smooths" the pulsating DC output into a relatively steady DC voltage.
                 </div>
+            </div>
 
-                <div class="bg-blue-50 dark:bg-blue-900/30 p-5 rounded-lg border dark:border-slate-700 border-blue-100 dark:border-blue-800 shadow-sm">
-                    <h3 class="font-bold text-lg mb-2 text-indigo-800 dark:text-indigo-200">3. Carrier Concentration (Mass Action Law)</h3>
-                    <p class="text-sm mb-3"><strong>Question:</strong> A pure semiconductor has an intrinsic carrier
-                        density of $10^{20} \text{ m}^{-3}$ at 300K. When doped with a donor type impurity, the hole
-                        concentration decreased to $10^{18} \text{ m}^{-3}$ at the same temperature. Find the new
-                        electron concentration.</p>
-                    <div class="text-sm text-slate-800 dark:text-slate-200 border-t border-blue-200 dark:border-blue-700 pt-3">
-                        <p><strong>Given:</strong> $n_i = 10^{20} \text{ m}^{-3}$, $p = 10^{18} \text{ m}^{-3}$.</p>
-                        <p class="mt-2"><strong>Formula:</strong> Mass Action Law ($n \cdot p = n_i^2$)</p>
-                        <p class="mt-2"><strong>Calculation:</strong></p>
-                        <p>$$ n = \frac{n_i^2}{p} = \frac{(10^{20})^2}{10^{18}} = \frac{10^{40}}{10^{18}} =
-                            \mathbf{10^{22} \text{ m}^{-3}} $$</p>
-                    </div>
-                </div>
-
-                <div class="bg-blue-50 dark:bg-blue-900/30 p-5 rounded-lg border dark:border-slate-700 border-blue-100 dark:border-blue-800 shadow-sm overflow-x-auto">
-                    <h3 class="font-bold text-lg mb-2 text-indigo-800 dark:text-indigo-200">4. Wavelength of Emitted Radiation</h3>
-                    <p class="text-sm mb-3"><strong>Question:</strong> The forbidden energy gap in a direct gap
-                        semiconductor is 1.43 eV. Determine the wavelength of radiation emitted when a conduction band
-                        electron makes direct recombination with a valence band hole.</p>
-                    <div class="text-sm text-slate-800 dark:text-slate-200 border-t border-blue-200 dark:border-blue-700 pt-3">
-                        <p><strong>Given:</strong> $E_g = 1.43 \text{ eV}$.</p>
-                        <p>Planck's constant ($h$) = $6.626 \times 10^{-34} \text{ J \cdot s}$<br>
-                            Speed of light ($c$) = $3 \times 10^8 \text{ m/s}$<br>
-                            1 eV = $1.6 \times 10^{-19} \text{ J}$</p>
-                        <p class="mt-2"><strong>Formula:</strong> $E = \frac{hc}{\lambda} \Rightarrow \lambda =
-                            \frac{hc}{E_g}$</p>
-                        <p class="mt-2"><strong>Calculation:</strong></p>
-                        <p>Convert Energy to Joules: $E = 1.43 \times 1.6 \times 10^{-19} = 2.288 \times 10^{-19} \text{
-                            J}$</p>
-                        <p>$$ \lambda = \frac{(6.626 \times 10^{-34}) \times (3 \times 10^8)}{2.288 \times 10^{-19}} =
-                            \frac{1.9878 \times 10^{-25}}{2.288 \times 10^{-19}} \approx \mathbf{8.688 \times 10^{-7}
-                            \text{ m} \text{ (or } 868.8 \text{ nm)}} $$</p>
-                        <p class="italic text-xs text-slate-500 dark:text-slate-400 dark:text-slate-500 mt-2">*Shortcut formula: $\lambda (\text{in nm}) \approx
-                            \frac{1240}{E_g \text{ (in eV)}} = \frac{1240}{1.43} \approx 867.1 \text{ nm}$.</p>
-                    </div>
-                </div>
-
-                <div class="bg-blue-50 dark:bg-blue-900/30 p-5 rounded-lg border dark:border-slate-700 border-blue-100 dark:border-blue-800 shadow-sm">
-                    <h3 class="font-bold text-lg mb-2 text-indigo-800 dark:text-indigo-200">5. Diffusion Constant Calculation</h3>
-                    <p class="text-sm mb-3"><strong>Question:</strong> The mobility of an electron in silicon at 300K is
-                        0.130 m$^2$/Vs. Calculate the diffusion constant of the electron.</p>
-                    <div class="text-sm text-slate-800 dark:text-slate-200 border-t border-blue-200 dark:border-blue-700 pt-3">
-                        <p><strong>Given:</strong> $\mu_e = 0.130 \text{ m}^2/\text{Vs}$, $T = 300 \text{K}$.</p>
-                        <p>Boltzmann constant ($k$) = $1.38 \times 10^{-23} \text{ J/K}$<br>
-                            Charge ($q$) = $1.6 \times 10^{-19} \text{ C}$</p>
-                        <p class="mt-2"><strong>Formula:</strong> Einstein Relation ($\frac{D}{\mu} = \frac{kT}{q} =
-                            V_T$)</p>
-                        <p class="mt-2"><strong>Calculation:</strong></p>
-                        <p>First, find thermal voltage ($V_T$):</p>
-                        <p>$$ V_T = \frac{(1.38 \times 10^{-23}) \times 300}{1.6 \times 10^{-19}} = 0.025875 \text{ V}
-                            $$</p>
-                        <p>Now calculate Diffusion Constant ($D_e$):</p>
-                        <p>$$ D_e = \mu_e \times V_T = 0.130 \times 0.025875 \approx \mathbf{0.00336 \text{
-                            m}^2/\text{s}} $$</p>
-                    </div>
-                </div>
-
+            <!-- Zener Diode -->
+            <div class="border-t border-slate-100 pt-6">
+                <h3 class="text-xl font-bold text-orange-700 mb-2">5. Zener Diode & Avalanche Breakdown</h3>
+                <p class="text-sm text-slate-700 mb-2">A Zener diode is heavily doped, resulting in a very thin depletion region. When reverse-biased, it operates in the breakdown region safely.</p>
+                <ul class="list-disc pl-5 text-sm text-slate-700 space-y-1">
+                    <li><strong>Zener Breakdown (Lower voltages < 6V):</strong> Due to the ultra-thin depletion region, a strong electric field physically rips electrons directly out of covalent bonds (Quantum Tunneling).</li>
+                    <li><strong>Avalanche Breakdown (Higher voltages > 6V):</strong> Minority carriers accelerate under the high reverse voltage, gaining huge kinetic energy. They collide with lattice atoms, knocking out more electrons in a multiplying "avalanche" effect.</li>
+                </ul>
+                <p class="text-sm text-slate-700 mt-2"><strong>I-V Characteristic:</strong> In reverse bias, current is tiny until $V_Z$ is reached. At $V_Z$, current shoots up drastically while voltage remains practically constant, making it ideal for <strong>Voltage Regulation</strong>.</p>
             </div>
         </div>
 
-        <svg width="0" height="0">
-            <defs>
-                <marker id="arrowhead-black" markerWidth="5" markerHeight="4" refX="2.5" refY="2" orient="auto">
-                    <polygon points="0 0, 5 2, 0 4" fill="black" />
-                </marker>
-            </defs>
-        </svg>
+        <!-- ========================================== -->
+        <!-- MODULE 3: BIPOLAR JUNCTION TRANSISTORS     -->
+        <!-- ========================================== -->
+        <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 space-y-8">
+            <h2 class="text-3xl font-bold text-slate-800 border-b-4 border-orange-400 inline-block pb-2">Module 3: Bipolar Junction Transistors (BJT)</h2>
 
-        <footer class="text-center py-6 text-slate-500 dark:text-slate-400 dark:text-slate-500 text-sm">
-            Made with careful physical accuracy. Best of luck with your studies!
+            <!-- BJT Config & Doping -->
+            <div>
+                <h3 class="text-xl font-bold text-orange-700 mb-2">1 & 3. Configurations & Doping Principles</h3>
+                <p class="text-sm text-slate-700 mb-3"><strong>Standard Configurations:</strong> Common Emitter (CE - widely used, high voltage/current gain, 180° phase inversion), Common Base (CB - high frequency, unity current gain), Common Collector (CC - Emitter Follower, unity voltage gain, impedance matching).</p>
+                
+                <div class="bg-slate-50 p-4 rounded-lg border border-slate-200 text-sm mb-4">
+                    <strong class="block text-orange-800 mb-1">Doping Principle & Swapping Terminals:</strong>
+                    <ul class="list-disc pl-5 mb-2 space-y-1">
+                        <li><strong>Emitter:</strong> Heavily doped to inject a massive number of charge carriers into the base.</li>
+                        <li><strong>Base:</strong> Very lightly doped and extremely thin to minimize carrier recombination ($I_B$ is tiny).</li>
+                        <li><strong>Collector:</strong> Moderately doped but physically the largest region to dissipate heat generated during carrier collection.</li>
+                    </ul>
+                    <p class="text-red-700 font-bold">Why does the working principle fail if Emitter and Collector are interchanged?</p>
+                    <p>If swapped, the new "emitter" (former collector) is only moderately doped, so it injects very few carriers. The new "collector" (former emitter) is too small to handle heat dissipation. The transistor will function, but the current gain ($\beta$) will collapse from a typical ~100 down to practically 1, rendering it useless for amplification.</p>
+                </div>
+            </div>
+
+            <!-- Current relations & Alpha/Beta -->
+            <div class="border-t border-slate-100 pt-6">
+                <h3 class="text-xl font-bold text-orange-700 mb-2">4 & 6. Current Relationships & Proving $\alpha$ and $\beta$</h3>
+                <p class="text-sm text-slate-700 mb-2">Fundamental Current Equation: $$I_E = I_B + I_C$$</p>
+                <p class="text-sm text-slate-700 mb-4">Here, $I_C \approx I_E$ (about 95-99%), and $I_B$ is very small (~1-5%).</p>
+
+                <div class="math-box text-sm">
+                    <strong class="text-orange-800">Derivation of $\beta$ and $\alpha$ relation:</strong>
+                    <p class="mb-2 italic text-slate-500">Note: Your syllabus mentions "prove $\beta = \alpha/(1+\alpha)$". This is a standard typographical error found in some materials. The mathematically correct universal relationship for BJTs is $\beta = \frac{\alpha}{1-\alpha}$. Here is the proof:</p>
+                    
+                    <p>1. Start with KCL: $I_E = I_B + I_C$</p>
+                    <p>2. Divide the entire equation by $I_C$:</p>
+                    <p>$$\frac{I_E}{I_C} = \frac{I_B}{I_C} + 1$$</p>
+                    <p>3. Use the definitions of DC current gains: $\alpha = \frac{I_C}{I_E}$ (so $\frac{I_E}{I_C} = \frac{1}{\alpha}$) and $\beta = \frac{I_C}{I_B}$ (so $\frac{I_B}{I_C} = \frac{1}{\beta}$).</p>
+                    <p>4. Substitute these into the equation:</p>
+                    <p>$$\frac{1}{\alpha} = \frac{1}{\beta} + 1$$</p>
+                    <p>$$\frac{1}{\alpha} = \frac{1 + \beta}{\beta} \implies \mathbf{\alpha = \frac{\beta}{1 + \beta}}$$</p>
+                    <p>5. To find $\beta$ in terms of $\alpha$, rearrange the same equation: $\frac{1}{\beta} = \frac{1}{\alpha} - 1 = \frac{1 - \alpha}{\alpha} \implies \mathbf{\beta = \frac{\alpha}{1 - \alpha}}$</p>
+                </div>
+            </div>
+
+            <!-- Load Line, Early Effect & I_CBO -->
+            <div class="border-t border-slate-100 pt-6">
+                <h3 class="text-xl font-bold text-orange-700 mb-2">2, 5, 7. DC Load Line, Early Effect & Reverse Saturation Current</h3>
+                
+                <div class="space-y-4 text-sm text-slate-700">
+                    <p><strong>DC Load Line & Q-Point:</strong> The Load Line is a straight line drawn on the output characteristics ($I_C$ vs $V_{CE}$) representing the equation $V_{CE} = V_{CC} - I_C R_C$. The Q-Point (Quiescent point) is the operating point with zero AC input. For undistorted amplification, the Q-Point must be exactly in the center of the active region.</p>
+                    
+                    <!-- Added Load Line SVG -->
+                    <div class="flex justify-center bg-slate-50 p-6 rounded-xl border border-slate-200 my-4">
+                        <svg width="350" height="250" viewBox="0 0 350 250" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Axes -->
+                            <line x1="40" y1="210" x2="330" y2="210" stroke="black" stroke-width="2" marker-end="url(#arrowhead3)"/>
+                            <text x="300" y="230" font-weight="bold">V_CE (V)</text>
+                            <line x1="40" y1="210" x2="40" y2="20" stroke="black" stroke-width="2" marker-end="url(#arrowhead3)"/>
+                            <text x="10" y="30" font-weight="bold">I_C</text>
+                            
+                            <!-- Output Curves -->
+                            <path d="M 40 210 Q 50 150, 300 150" fill="none" stroke="#94a3b8" stroke-width="2"/>
+                            <path d="M 40 210 Q 50 110, 300 110" fill="none" stroke="#94a3b8" stroke-width="2"/>
+                            <path d="M 40 210 Q 50 70, 300 70" fill="none" stroke="#94a3b8" stroke-width="2"/>
+                            <text x="310" y="155" font-size="10">Ib1</text>
+                            <text x="310" y="115" font-size="10">Ib2</text>
+                            <text x="310" y="75" font-size="10">Ib3</text>
+
+                            <!-- Load Line -->
+                            <line x1="40" y1="40" x2="280" y2="210" stroke="#ea580c" stroke-width="3"/>
+                            <text x="45" y="35" fill="#ea580c" font-size="12" font-weight="bold">Vcc/Rc (Sat)</text>
+                            <text x="240" y="230" fill="#ea580c" font-size="12" font-weight="bold">Vcc (Cutoff)</text>
+
+                            <!-- Q-Point -->
+                            <circle cx="140" cy="110" r="5" fill="red"/>
+                            <text x="150" y="105" fill="red" font-weight="bold">Q-Point</text>
+                            <line x1="40" y1="110" x2="140" y2="110" stroke="red" stroke-dasharray="4"/>
+                            <line x1="140" y1="210" x2="140" y2="110" stroke="red" stroke-dasharray="4"/>
+                            
+                            <defs>
+                                <marker id="arrowhead3" markerWidth="5" markerHeight="4" refX="2.5" refY="2" orient="auto"><polygon points="0 0, 5 2, 0 4" fill="black"/></marker>
+                            </defs>
+                        </svg>
+                    </div>
+
+                    <div class="bg-orange-50 p-4 rounded border-l-4 border-orange-400">
+                        <strong>Early Effect (Base-Width Modulation):</strong><br>
+                        In the active region, the Collector-Base (CB) junction is reverse-biased. As you increase the reverse bias voltage ($V_{CB}$), the depletion region at the CB junction widens. Because the Base is very lightly doped compared to the Collector, this depletion region penetrates almost entirely into the Base. This effectively <em>reduces the actual physical width of the neutral base region</em>. This narrowing is called the Early Effect. It causes $I_C$ to increase slightly with $V_{CE}$ (giving the characteristic curves a slight upward slope instead of being perfectly flat).
+                    </div>
+                    <p><strong>Saturation Region & Early Effect:</strong> In saturation, BOTH junctions (EB and CB) are forward biased. Since the CB junction is no longer reverse biased, the depletion region shrinks, and the Early Effect completely vanishes.</p>
+
+                    <p><strong>Reverse Saturation Current ($I_{CBO}$):</strong> This is the leakage current flowing from Collector to Base with the Emitter open. It is highly temperature-dependent. In a CE configuration, this leakage is amplified by the transistor action, resulting in $I_{CEO} = (1+\beta)I_{CBO}$. This is why temperature stabilization is critical for BJTs.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- MODULE 4: OP-AMP & FET                     -->
+        <!-- ========================================== -->
+        <div class="bg-white p-8 rounded-3xl shadow-sm border border-slate-200 space-y-8">
+            <h2 class="text-3xl font-bold text-slate-800 border-b-4 border-orange-400 inline-block pb-2">Module 4: OP-AMP & FET</h2>
+
+            <!-- OP-AMP Derivations -->
+            <div>
+                <h3 class="text-xl font-bold text-orange-700 mb-4">1. OP-AMP Derivations (Inverting, Non-Inverting, Integrator)</h3>
+                <p class="text-sm mb-4">For derivations, we assume an <strong>Ideal OP-AMP</strong>: Infinite input impedance ($I_{in} = 0$) and the Virtual Ground Principle ($V_+ = V_-$).</p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                    <!-- Inverting -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                        <h4 class="font-bold text-lg mb-2 text-slate-800">Inverting Amplifier</h4>
+                        <p>Input applied to inverting terminal (-), non-inverting (+) grounded.</p>
+                        <ol class="list-decimal pl-5 mt-2 space-y-1">
+                            <li>$V_+ = 0V$. By virtual ground, $V_- = 0V$.</li>
+                            <li>Current through input resistor $R_{in}$: $I_{in} = \frac{V_{in} - V_-}{R_{in}} = \frac{V_{in}}{R_{in}}$</li>
+                            <li>Current through feedback resistor $R_f$: $I_f = \frac{V_- - V_{out}}{R_f} = \frac{-V_{out}}{R_f}$</li>
+                            <li>Since no current enters the OP-AMP, $I_{in} = I_f$.</li>
+                            <li>$\frac{V_{in}}{R_{in}} = -\frac{V_{out}}{R_f}$</li>
+                        </ol>
+                        <div class="bg-white border border-slate-100 p-2 mt-3 font-serif font-bold text-center text-orange-800">
+                            $$V_{out} = - \left( \frac{R_f}{R_{in}} \right) V_{in}$$
+                        </div>
+                    </div>
+
+                    <!-- Non-Inverting -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200">
+                        <h4 class="font-bold text-lg mb-2 text-slate-800">Non-Inverting Amplifier</h4>
+                        <p>Input applied to (+), feedback goes to (-).</p>
+                        <ol class="list-decimal pl-5 mt-2 space-y-1">
+                            <li>$V_+ = V_{in}$. By virtual ground, $V_- = V_{in}$.</li>
+                            <li>Current from $V_-$ to ground via $R_{in}$: $I_{in} = \frac{V_{in} - 0}{R_{in}}$</li>
+                            <li>Current from $V_{out}$ to $V_-$ via $R_f$: $I_f = \frac{V_{out} - V_{in}}{R_f}$</li>
+                            <li>Equating currents ($I_f = I_{in}$):</li>
+                            <li>$\frac{V_{out} - V_{in}}{R_f} = \frac{V_{in}}{R_{in}} \implies V_{out} = V_{in} + V_{in}\frac{R_f}{R_{in}}$</li>
+                        </ol>
+                        <div class="bg-white border border-slate-100 p-2 mt-3 font-serif font-bold text-center text-orange-800">
+                            $$V_{out} = \left( 1 + \frac{R_f}{R_{in}} \right) V_{in}$$
+                        </div>
+                    </div>
+                    
+                    <!-- Integrator -->
+                    <div class="bg-slate-50 p-5 rounded-xl border border-slate-200 md:col-span-2">
+                        <h4 class="font-bold text-lg mb-2 text-slate-800">Integrator Amplifier</h4>
+                        <p>Feedback element is a Capacitor ($C_f$), input is a Resistor ($R_{in}$).</p>
+                        <ol class="list-decimal pl-5 mt-2 space-y-1">
+                            <li>Virtual ground: $V_- = 0V$.</li>
+                            <li>Input current: $I_{in} = \frac{V_{in}}{R_{in}}$</li>
+                            <li>Capacitor current equation: $I_c = C_f \frac{d(V_- - V_{out})}{dt} = -C_f \frac{dV_{out}}{dt}$</li>
+                            <li>Equating currents ($I_{in} = I_c$): $\frac{V_{in}}{R_{in}} = -C_f \frac{dV_{out}}{dt}$</li>
+                            <li>Rearranging and integrating both sides with respect to time ($t$):</li>
+                        </ol>
+                        <div class="bg-white border border-slate-100 p-2 mt-3 font-serif font-bold text-center text-orange-800">
+                            $$V_{out} = -\frac{1}{R_{in} C_f} \int_0^t V_{in} dt$$
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FET vs BJT -->
+            <div class="border-t border-slate-100 pt-6">
+                <h3 class="text-xl font-bold text-orange-700 mb-4">3. FET vs BJT: Comparative Analysis</h3>
+                
+                <table class="w-full text-sm text-left border-collapse trace-table shadow-sm border border-slate-200">
+                    <thead>
+                        <tr class="bg-orange-100">
+                            <th class="border border-slate-200 p-3 w-1/4">Parameter</th>
+                            <th class="border border-slate-200 p-3 w-3/8 text-orange-800 text-lg">FET (Field Effect Transistor)</th>
+                            <th class="border border-slate-200 p-3 w-3/8 text-lg">BJT (Bipolar Junction Transistor)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="border border-slate-200 p-3 font-bold bg-white">Control Mechanism<br><span class="text-xs text-orange-600">(Core Reason)</span></td>
+                            <td class="border border-slate-200 p-4 font-bold bg-orange-50 text-base">Voltage Controlled Device<br><p class="font-normal text-sm mt-2">The voltage applied at the Gate terminal ($V_{GS}$) creates an electric field that alters the width of the depletion region in the channel. This physical pinching controls the flow of Drain current ($I_D$). Because the Gate is reverse-biased (JFET) or insulated (MOSFET), absolutely no gate current flows. <strong>Voltage solely controls output.</strong></p></td>
+                            <td class="border border-slate-200 p-4 font-bold bg-slate-50 text-base">Current Controlled Device<br><p class="font-normal text-sm mt-2">The physical injection of current into the Base terminal ($I_B$) allows carriers to cross into the Collector. Without Base current, Collector current stops. <strong>Input current controls output current.</strong></p></td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-200 p-3 font-bold bg-white">Charge Carriers</td>
+                            <td class="border border-slate-200 p-3"><strong>Unipolar:</strong> Current is carried by ONLY majority carriers (either holes in P-channel, or electrons in N-channel).</td>
+                            <td class="border border-slate-200 p-3"><strong>Bipolar:</strong> Current conduction requires BOTH holes and electrons simultaneously.</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-200 p-3 font-bold bg-white">Input Impedance</td>
+                            <td class="border border-slate-200 p-3">Extremely High ($10^9$ to $10^{14}$ $\Omega$). Draws virtually zero power from signal source.</td>
+                            <td class="border border-slate-200 p-3">Low (Typically around 1 k$\Omega$ to 50 k$\Omega$). Draws current from signal source.</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-200 p-3 font-bold bg-white">Thermal Stability</td>
+                            <td class="border border-slate-200 p-3">Highly stable. Negative temperature coefficient prevents thermal runaway.</td>
+                            <td class="border border-slate-200 p-3">Less stable. Positive temperature coefficient makes it highly prone to thermal runaway.</td>
+                        </tr>
+                        <tr>
+                            <td class="border border-slate-200 p-3 font-bold bg-white">Size & Fabrication</td>
+                            <td class="border border-slate-200 p-3">Much smaller area on silicon chip. Ideal for high-density VLSI circuits (Processors, RAM).</td>
+                            <td class="border border-slate-200 p-3">Larger footprint. Complex to fabricate in high density.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <footer class="text-center py-6 text-slate-500 text-sm mt-8 border-t border-slate-200">
+            Interactive Electronics Engineering In-Depth Module. Developed for absolute mastery of the syllabus. Good luck on your exam!
         </footer>
     </div>
 </body>
-
 </html>

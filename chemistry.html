@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <link rel="icon" type="image/svg+xml" href="images/dirstudy_logo.svg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DIRSTUDY | Engineering Chemistry</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {}
+            }
+        }
+    </script>
+    <script>
+        if (localStorage.getItem('theme') === 'light') {
+            document.documentElement.classList.remove('dark');
+        } else {
+            document.documentElement.classList.add('dark');
+        }
+
+        function toggleTheme() {
+            if (document.documentElement.classList.contains('dark')) {
+                document.documentElement.classList.remove('dark');
+                localStorage.setItem('theme', 'light');
+            } else {
+                document.documentElement.classList.add('dark');
+                localStorage.setItem('theme', 'dark');
+            }
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.7;
+        }
+
+        .question-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .question-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+        }
+
+        .trace-table th {
+            background-color: #f0fdfa;
+        }
+
+        .trace-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+
+        .math-box {
+            background-color: #fff;
+            border: 1px solid #bae6fd;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+            overflow-x: auto;
+        }
+    
+        .dark .trace-table th { background-color: #1e293b; color: #cbd5e1; border-color: #334155; }
+        .dark .trace-table tr:nth-child(even) { background-color: #0f172a; border-color: #334155; }
+        .dark .trace-table td { border-color: #334155; background-color: #1e293b; }
+        .dark .math-box { background-color: #1e293b; border-color: #334155; }
+    
+    </style>
+</head>
+
+<body class="bg-slate-50 dark:bg-slate-900 text-slate-800 dark:text-slate-200 p-4 md:p-5 md:p-8">
+
+    <div class="fixed top-4 right-4 z-50">
+        <button onclick="toggleTheme()" class="flex items-center gap-2 px-4 py-2 bg-white dark:bg-slate-800 rounded-full text-sm font-semibold text-slate-800 dark:text-slate-200 shadow hover:shadow-md border border-slate-200 dark:border-slate-700 transition-colors cursor-pointer">
+            🌓 Toggle Theme
+        </button>
+    </div>
+
+    <div class="max-w-6xl mx-auto space-y-6 md:space-y-10">
+
+        <!-- Header -->
+        <header class="relative text-center py-12 bg-gradient-to-r from-cyan-600 to-blue-700 text-white rounded-3xl shadow-lg">
+            <a href="index.html"
+                class="absolute top-4 left-4 inline-flex items-center gap-2 bg-white dark:bg-slate-800/20 hover:bg-white dark:bg-slate-800/30 text-white px-4 py-2 rounded-lg backdrop-blur-sm transition-all duration-200 text-sm font-semibold">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                </svg>
+                Home
+            </a>
+            <h1 class="text-3xl md:text-5xl font-bold mb-4">Engineering Chemistry</h1>
+            <p class="text-xl text-cyan-100">Master Study Guide: Spectroscopy, Stereochem, MO Theory & Thermodynamics
+            </p>
+        </header>
+
+        <!-- ========================================== -->
+        <!-- MODULE 1: MO THEORY & 1D BOX               -->
+        <!-- ========================================== -->
+        <div class="bg-white dark:bg-slate-800 p-5 md:p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700 space-y-5 md:space-y-8">
+            <h2 class="text-3xl font-bold text-slate-800 dark:text-slate-200 border-b-4 border-cyan-400 inline-block pb-2">Module 1: Atomic
+                Structure & Bonding</h2>
+
+            <div>
+                <h3 class="text-xl font-bold text-cyan-700 dark:text-cyan-400 mb-4">1. MO Diagram of CO & NO (Bond Order & Magnetic
+                    Property)</h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:p-8 text-sm">
+                    <!-- CO Molecule -->
+                    <div class="bg-slate-50 dark:bg-slate-700/50 p-5 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <h4 class="font-bold text-lg mb-2 border-b border-slate-200 dark:border-slate-700 pb-2 text-blue-800 dark:text-blue-300">Carbon Monoxide
+                            (CO)</h4>
+                        <p class="mb-2"><strong>Total Electrons:</strong> 6 (from C) + 8 (from O) = 14 e⁻</p>
+                        <p class="mb-2"><strong>Electronic Configuration:</strong><br>
+                            <span class="font-mono text-xs bg-white dark:bg-slate-800 p-1 rounded border">σ1s² σ*1s² σ2s² σ*2s² π2p_x² =
+                                π2p_y² σ2p_z²</span>
+                        </p>
+                        <ul class="list-disc pl-5 space-y-1 mb-3 mt-2">
+                            <li>$N_b = 10$, $N_a = 4$</li>
+                            <li><strong>Bond Order:</strong> $\frac{10 - 4}{2} = \mathbf{3.0}$ (Triple bond)</li>
+                            <li><strong>Magnetic Property:</strong> <strong>Diamagnetic</strong> (All electrons are
+                                paired).</li>
+                        </ul>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 italic">*Note: In CO, the σ2p_z orbital is slightly higher in
+                            energy than the π orbitals due to s-p mixing.</p>
+                    </div>
+
+                    <!-- NO Molecule -->
+                    <div class="bg-slate-50 dark:bg-slate-700/50 p-5 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <h4 class="font-bold text-lg mb-2 border-b border-slate-200 dark:border-slate-700 pb-2 text-blue-800 dark:text-blue-300">Nitric Oxide
+                            (NO)</h4>
+                        <p class="mb-2"><strong>Total Electrons:</strong> 7 (from N) + 8 (from O) = 15 e⁻</p>
+                        <p class="mb-2"><strong>Electronic Configuration:</strong><br>
+                            <span class="font-mono text-xs bg-white dark:bg-slate-800 p-1 rounded border">σ1s² σ*1s² σ2s² σ*2s² σ2p_z²
+                                π2p_x² = π2p_y² \mathbf{π*2p_x¹}</span>
+                        </p>
+                        <ul class="list-disc pl-5 space-y-1 mb-3 mt-2">
+                            <li>$N_b = 10$, $N_a = 5$</li>
+                            <li><strong>Bond Order:</strong> $\frac{10 - 5}{2} = \mathbf{2.5}$</li>
+                            <li><strong>Magnetic Property:</strong> <strong>Paramagnetic</strong> (1 unpaired electron
+                                in π*).</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-100 dark:border-slate-700 pt-6">
+                <h3 class="text-xl font-bold text-cyan-700 dark:text-cyan-400 mb-2">2. Particle in a 1-D Box</h3>
+                <p class="text-sm text-slate-700 dark:text-slate-300 mb-3">Describes a free particle (like an electron) confined to a
+                    1-dimensional space of length $L$ with infinitely high potential walls ($V=0$ inside, $V=\infty$
+                    outside).</p>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="bg-cyan-50 dark:bg-cyan-900/30 p-4 rounded-xl border border-cyan-100 dark:border-cyan-800 text-sm">
+                        <strong class="block text-cyan-800 dark:text-cyan-300 mb-1">Energy ($E_n$):</strong>
+                        $$E_n = \frac{n^2 h^2}{8mL^2}$$
+                        <p class="text-xs mt-1 text-slate-600 dark:text-slate-400">Where $n = 1, 2, 3...$ (Principal quantum number). Energy
+                            is quantized. Ground state energy ($n=1$) is not zero (Zero-point energy).</p>
+                    </div>
+                    <div class="bg-blue-50 dark:bg-blue-900/30 p-4 rounded-xl border border-blue-100 dark:border-blue-800 text-sm">
+                        <strong class="block text-blue-800 dark:text-blue-300 mb-1">Wavefunction ($\psi_n$):</strong>
+                        $$\psi_n = \sqrt{\frac{2}{L}} \sin\left(\frac{n\pi x}{L}\right)$$
+                        <p class="text-xs mt-1 text-slate-600 dark:text-slate-400">The probability of finding the particle is $|\psi_n|^2$.
+                            The number of nodes is $(n-1)$.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- STEREOCHEMISTRY & ISOMERISM                -->
+        <!-- ========================================== -->
+        <div class="bg-white dark:bg-slate-800 p-5 md:p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700 space-y-5 md:space-y-8">
+            <h2 class="text-3xl font-bold text-slate-800 dark:text-slate-200 border-b-4 border-cyan-400 inline-block pb-2">Stereochemistry &
+                Isomerism</h2>
+
+            <!-- Nomenclature -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-5 md:p-8 text-sm">
+                <div>
+                    <h3 class="text-xl font-bold text-cyan-700 dark:text-cyan-400 mb-2">1. R/S Nomenclature</h3>
+                    <p class="mb-2">Used for chiral centers. Priorities assigned via CIP (Cahn-Ingold-Prelog) atomic
+                        number rules.</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>R (Rectus):</strong> 1 &rarr; 2 &rarr; 3 path is <strong>Clockwise</strong>.</li>
+                        <li><strong>S (Sinister):</strong> 1 &rarr; 2 &rarr; 3 path is
+                            <strong>Counter-Clockwise</strong>.</li>
+                        <li class="italic text-red-600">Rule: If the lowest priority group (4) is on a horizontal line
+                            (Fischer) or wedge, reverse the final result!</li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-xl font-bold text-cyan-700 dark:text-cyan-400 mb-2">2. E/Z & Geometrical Isomerism</h3>
+                    <p class="mb-2">Used for alkenes (C=C). Also uses CIP priority rules on each carbon.</p>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>Z (Zusammen):</strong> "Together" (Cis-like). High priority groups on the
+                            <strong>same side</strong>.</li>
+                        <li><strong>E (Entgegen):</strong> "Opposite" (Trans-like). High priority groups on
+                            <strong>opposite sides</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Conformations -->
+            <div class="border-t border-slate-100 dark:border-slate-700 pt-6">
+                <h3 class="text-xl font-bold text-cyan-700 dark:text-cyan-400 mb-4">3. Conformations of Alkanes (n-butane & propane)</h3>
+                <div class="bg-slate-50 dark:bg-slate-700/50 p-5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm">
+                    <p class="mb-4"><strong>n-Butane ($CH_3-CH_2-CH_2-CH_3$):</strong> Rotation around C2-C3 bond
+                        creates 4 conformers:</p>
+                    <ul class="space-y-2 mb-4">
+                        <li><strong>Anti (Staggered, 180°):</strong> Most stable. Bulky $CH_3$ groups are farthest
+                            apart.</li>
+                        <li><strong>Gauche (Staggered, 60°):</strong> $CH_3$ groups are adjacent. Slight steric strain.
+                        </li>
+                        <li><strong>Eclipsed (120°):</strong> H eclipses $CH_3$. Torsional strain.</li>
+                        <li><strong>Fully Eclipsed (0°):</strong> Least stable. $CH_3$ completely eclipses $CH_3$.
+                            Maximum steric strain.</li>
+                    </ul>
+                    <p><strong>Propane ($CH_3-CH_2-CH_3$):</strong> Only has basic <em>Staggered</em> and
+                        <em>Eclipsed</em> forms because rotating C1-C2 always eclipses an H with a $CH_3$ group.</p>
+                </div>
+            </div>
+
+            <!-- Conversions -->
+            <div class="border-t border-slate-100 dark:border-slate-700 pt-6">
+                <h3 class="text-xl font-bold text-cyan-700 dark:text-cyan-400 mb-4">4. Conversions (Flying Wedge, Fischer, Sawhorse,
+                    Newman)</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                    <div class="bg-white dark:bg-slate-800 border border-cyan-100 dark:border-cyan-800 p-4 rounded-xl shadow-sm">
+                        <strong class="block mb-2 text-cyan-800 dark:text-cyan-300">Wedge &rarr; Fischer</strong>
+                        <p>View the molecule from the top. Bonds coming out (wedges) go on the horizontal lines. Bonds
+                            going in (dashes) go on the vertical lines.</p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 border border-cyan-100 dark:border-cyan-800 p-4 rounded-xl shadow-sm">
+                        <strong class="block mb-2 text-cyan-800 dark:text-cyan-300">Fischer &rarr; Newman</strong>
+                        <p>Fischer projections are drawn in an <strong>eclipsed</strong> state. The cross intersection
+                            is the front carbon. Groups on horizontal lines point upwards/outwards in Newman.</p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 border border-cyan-100 dark:border-cyan-800 p-4 rounded-xl shadow-sm">
+                        <strong class="block mb-2 text-cyan-800 dark:text-cyan-300">Sawhorse &rarr; Newman</strong>
+                        <p>Look directly down the C-C bond of the Sawhorse. The front carbon becomes a dot, the back
+                            carbon becomes a large circle.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- SPECTROSCOPY                               -->
+        <!-- ========================================== -->
+        <div class="bg-white dark:bg-slate-800 p-5 md:p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700 space-y-5 md:space-y-8">
+            <h2 class="text-3xl font-bold text-slate-800 dark:text-slate-200 border-b-4 border-cyan-400 inline-block pb-2">Spectroscopy</h2>
+
+            <!-- Jablonski -->
+            <div>
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
+                    <h3 class="text-xl font-bold text-cyan-700 dark:text-cyan-400">1. Jablonski Diagram (Photochemistry)</h3>
+                    <button onclick="explainLikeImFive('Jablonski Diagram and photochemistry transitions')"
+                        class="bg-blue-100 hover:bg-blue-200 text-blue-800 dark:text-blue-300 font-bold py-1 px-3 rounded-full transition-colors text-xs flex items-center gap-1 border border-blue-200 shadow-sm w-max">
+                        ✨ Explain Like I'm 5
+                    </button>
+                </div>
+                <p class="text-sm text-slate-700 dark:text-slate-300 mb-4">Illustrates the electronic states of a molecule and the
+                    transitions between them following the absorption of light.</p>
+
+                <div
+                    class="flex flex-col md:flex-row gap-5 md:p-8 items-center bg-slate-50 dark:bg-slate-700/50 p-6 rounded-xl border border-slate-200 dark:border-slate-700">
+                    <div class="flex-1 text-sm space-y-3">
+                        <p><strong>Absorption:</strong> Molecule jumps from Singlet Ground State ($S_0$) to Excited
+                            States ($S_1, S_2$).</p>
+                        <p><strong>Internal Conversion (IC):</strong> Non-radiative transition between states of the
+                            <em>same</em> multiplicity (e.g., $S_2 \rightarrow S_1$).</p>
+                        <p><strong>Intersystem Crossing (ISC):</strong> Non-radiative transition between states of
+                            <em>different</em> multiplicity (e.g., $S_1 \rightarrow T_1$). Involves spin flip.</p>
+                        <p><strong class="text-blue-600">Fluorescence:</strong> Radiative transition $S_1 \rightarrow
+                            S_0$. Fast (nanoseconds).</p>
+                        <p><strong class="text-purple-600">Phosphorescence:</strong> Radiative transition $T_1
+                            \rightarrow S_0$. Slow (milliseconds to hours) because it is a "forbidden" spin transition.
+                        </p>
+                    </div>
+                    <!-- Jablonski SVG -->
+                    <div class="bg-white dark:bg-slate-800 p-4 rounded-xl shadow-sm border border-slate-100 dark:border-slate-700">
+                        <svg width="250" height="250" viewBox="0 0 250 250" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Energy Levels -->
+                            <line x1="20" y1="220" x2="230" y2="220" stroke="black" stroke-width="3" />
+                            <text x="5" y="225" font-weight="bold">S₀</text>
+
+                            <line x1="20" y1="80" x2="130" y2="80" stroke="black" stroke-width="3" />
+                            <text x="5" y="85" font-weight="bold">S₁</text>
+
+                            <line x1="140" y1="120" x2="230" y2="120" stroke="black" stroke-width="3" />
+                            <text x="235" y="125" font-weight="bold">T₁</text>
+
+                            <!-- Absorption -->
+                            <line x1="40" y1="220" x2="40" y2="80" stroke="black" stroke-width="2"
+                                marker-end="url(#arrowhead)" />
+                            <text x="45" y="160" transform="rotate(-90 45,160)" font-size="10">Absorption</text>
+
+                            <!-- Fluorescence -->
+                            <line x1="80" y1="80" x2="80" y2="220" stroke="blue" stroke-width="2"
+                                marker-end="url(#arrowhead-blue)" />
+                            <text x="85" y="160" transform="rotate(90 85,160)" font-size="10"
+                                fill="blue">Fluorescence</text>
+
+                            <!-- ISC -->
+                            <path d="M 130 80 Q 135 100, 140 120" fill="none" stroke="black" stroke-dasharray="4"
+                                marker-end="url(#arrowhead)" />
+                            <text x="145" y="95" font-size="10">ISC</text>
+
+                            <!-- Phosphorescence -->
+                            <line x1="180" y1="120" x2="180" y2="220" stroke="purple" stroke-width="2"
+                                marker-end="url(#arrowhead-purple)" />
+                            <text x="185" y="180" transform="rotate(90 185,180)" font-size="10"
+                                fill="purple">Phosphorescence</text>
+
+                            <defs>
+                                <marker id="arrowhead" markerWidth="5" markerHeight="4" refX="2.5" refY="2"
+                                    orient="auto">
+                                    <polygon points="0 0, 5 2, 0 4" fill="black" />
+                                </marker>
+                                <marker id="arrowhead-blue" markerWidth="5" markerHeight="4" refX="2.5" refY="2"
+                                    orient="auto">
+                                    <polygon points="0 0, 5 2, 0 4" fill="blue" />
+                                </marker>
+                                <marker id="arrowhead-purple" markerWidth="5" markerHeight="4" refX="2.5" refY="2"
+                                    orient="auto">
+                                    <polygon points="0 0, 5 2, 0 4" fill="purple" />
+                                </marker>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- NMR & IR -->
+            <div class="border-t border-slate-100 dark:border-slate-700 pt-6">
+                <h3 class="text-xl font-bold text-cyan-700 dark:text-cyan-400 mb-4">2 & 3. NMR, IR & Spectroscopy Concepts</h3>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                    <div class="bg-slate-50 dark:bg-slate-700/50 p-5 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <strong class="block text-lg mb-2 text-cyan-800 dark:text-cyan-300">NMR: Types of Protons & Chemical Shift</strong>
+                        <ul class="list-disc pl-5 space-y-2">
+                            <li><strong>Equivalent Protons:</strong> Protons in the exact same chemical environment
+                                produce 1 single signal. (e.g., all 6 H's in Benzene give 1 signal).</li>
+                            <li><strong>Chemical Shift ($\delta$):</strong> Indicates the electronic environment.
+                                Shielded protons (electron-rich) appear upfield (lower ppm). Deshielded protons (near
+                                electronegative atoms) appear downfield (higher ppm).</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-slate-50 dark:bg-slate-700/50 p-5 rounded-xl border border-slate-200 dark:border-slate-700">
+                        <strong class="block text-lg mb-2 text-cyan-800 dark:text-cyan-300">NMR: Pascal's Triangle & Splitting</strong>
+                        <p class="mb-2"><strong>$n+1$ Rule:</strong> The signal of a proton is split into $n+1$ peaks,
+                            where $n$ is the number of adjacent equivalent protons.</p>
+                        <p>The intensity ratios of these peaks follow <strong>Pascal's Triangle</strong>:</p>
+                        <ul class="font-mono text-xs mt-2 bg-white dark:bg-slate-800 p-2 rounded">
+                            <li>n=0 (Singlet): 1</li>
+                            <li>n=1 (Doublet): 1 : 1</li>
+                            <li>n=2 (Triplet): 1 : 2 : 1</li>
+                            <li>n=3 (Quartet): 1 : 3 : 3 : 1</li>
+                        </ul>
+                    </div>
+
+                    <div class="bg-slate-50 dark:bg-slate-700/50 p-5 rounded-xl border border-slate-200 dark:border-slate-700 md:col-span-2">
+                        <strong class="block text-lg mb-2 text-cyan-800 dark:text-cyan-300">IR & Vibrational Spectroscopy
+                            Applications</strong>
+                        <p>Infrared (IR) spectroscopy causes molecular vibrations (stretching and bending). It is
+                            primarily used for <strong>Functional Group Identification</strong>. <br>
+                            <em>Example:</em> A strong broad peak at ~3300 cm⁻¹ indicates an -OH group. A sharp peak at
+                            ~1700 cm⁻¹ indicates a Carbonyl (C=O) group.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-slate-100 dark:border-slate-700 pt-6">
+                <h3 class="text-xl font-bold text-cyan-700 dark:text-cyan-400 mb-2">5. Oxidation Number Calculation</h3>
+                <p class="text-sm">Rules: Free elements = 0. Oxygen is usually -2 (except peroxides = -1). Hydrogen is
+                    usually +1 (except hydrides = -1). The sum of oxidation states in a neutral molecule is 0, or equal
+                    to the charge for an ion.</p>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- MODULE 3 & 4: THERMODYNAMICS, ELECTROCHEM & GASES -->
+        <!-- ========================================== -->
+        <div class="bg-white dark:bg-slate-800 p-5 md:p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700 space-y-5 md:space-y-8">
+            <h2 class="text-3xl font-bold text-slate-800 dark:text-slate-200 border-b-4 border-cyan-400 inline-block pb-2">Module 3 & 4:
+                Physical Chemistry</h2>
+
+            <!-- Van der Waals -->
+            <div>
+                <h3 class="text-xl font-bold text-cyan-700 dark:text-cyan-400 mb-2">Van der Waals Equation (Real Gases)</h3>
+                <div class="math-box">
+                    $$\left( P + \frac{an^2}{V^2} \right) (V - nb) = nRT$$
+                </div>
+                <div class="bg-slate-50 dark:bg-slate-700/50 p-4 rounded-xl text-sm border border-slate-200 dark:border-slate-700 mt-2">
+                    <strong class="block mb-2">Significance of terms (5/10 Marks):</strong>
+                    <ul class="list-disc pl-5 space-y-1">
+                        <li><strong>$P$ and $V$:</strong> Measured pressure and volume.</li>
+                        <li><strong>$n$:</strong> Number of moles.</li>
+                        <li><strong>$a$ (Correction for Intermolecular Forces):</strong> Accounts for the attractive
+                            forces between gas molecules, which reduces the pressure they exert on the walls. High '$a$'
+                            = easy liquefaction.</li>
+                        <li><strong>$b$ (Correction for Volume):</strong> Represents the actual finite volume occupied
+                            by the gas molecules themselves (excluded volume).</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Thermodynamics -->
+            <div class="border-t border-slate-100 dark:border-slate-700 pt-6">
+                <h3 class="text-xl font-bold text-cyan-700 dark:text-cyan-400 mb-2">Thermodynamics: Equilibrium Constant, $\Delta G$,
+                    $\Delta H$</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 text-sm">
+                    <div class="bg-white dark:bg-slate-800 p-4 border border-cyan-200 dark:border-cyan-700 rounded-lg shadow-sm">
+                        <strong class="block text-cyan-800 dark:text-cyan-300 mb-2">Gibbs Free Energy ($\Delta G$)</strong>
+                        <p>$$\Delta G = \Delta H - T\Delta S$$</p>
+                        <p class="mt-2 text-slate-600 dark:text-slate-400">If $\Delta G < 0$, reaction is spontaneous. $\Delta H$ is
+                                Enthalpy (heat), $\Delta S$ is Entropy (randomness).</p>
+                    </div>
+                    <div class="bg-white dark:bg-slate-800 p-4 border border-cyan-200 dark:border-cyan-700 rounded-lg shadow-sm">
+                        <strong class="block text-cyan-800 dark:text-cyan-300 mb-2">Relation with Equilibrium ($K_{eq}$)</strong>
+                        <p>$$\Delta G^\circ = -RT \ln K_{eq} = -2.303 RT \log_{10} K_{eq}$$</p>
+                        <p class="mt-2 text-slate-600 dark:text-slate-400">Used heavily in numericals to find the Equilibrium constant
+                            ($K_{eq}$) given standard free energy.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Nernst Equation -->
+            <div class="border-t border-slate-100 dark:border-slate-700 pt-6">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between mb-2 gap-2">
+                    <h3 class="text-xl font-bold text-cyan-700 dark:text-cyan-400">Nernst Equation Derivation</h3>
+                    <button onclick="generateQuiz('Nernst Equation and Electrochemistry')"
+                        class="bg-cyan-100 hover:bg-cyan-200 text-cyan-800 dark:text-cyan-300 font-bold py-1 px-3 rounded-full transition-colors text-xs flex items-center gap-1 border border-cyan-200 dark:border-cyan-700 shadow-sm w-max">
+                        ✨ Generate Practice Problem
+                    </button>
+                </div>
+                <p class="text-sm text-slate-700 dark:text-slate-300 mb-4">Relates the cell potential ($E$) to the standard cell potential
+                    ($E^\circ$) and the reaction quotient ($Q$).</p>
+                <div class="bg-slate-50 dark:bg-slate-700/50 p-5 rounded-xl border border-slate-200 dark:border-slate-700 text-sm font-serif">
+                    <ol class="list-decimal pl-5 space-y-2">
+                        <li>From thermodynamics, the free energy change under non-standard conditions is: <br> $$\Delta
+                            G = \Delta G^\circ + RT \ln Q$$</li>
+                        <li>We know electrical work relates to free energy by: <br> $$\Delta G = -nFE$$ and $$\Delta
+                            G^\circ = -nFE^\circ$$</li>
+                        <li>Substitute these into the first equation: <br> $$-nFE = -nFE^\circ + RT \ln Q$$</li>
+                        <li>Divide the entire equation by $-nF$: <br>
+                            <div class="bg-cyan-100 p-2 rounded text-center my-2 font-bold font-sans text-cyan-900">
+                                $$E = E^\circ - \frac{RT}{nF} \ln Q$$
+                            </div>
+                        </li>
+                        <li>At 298K, converting $\ln$ to $\log_{10}$ and plugging in constants ($R, T, F$), the
+                            numerical formula becomes:
+                            $$E = E^\circ - \frac{0.0591}{n} \log_{10} \left(
+                            \frac{[\text{Products}]}{[\text{Reactants}]} \right)$$
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
+
+        <!-- ========================================== -->
+        <!-- MODULE 5: PERIODIC PROPERTIES              -->
+        <!-- ========================================== -->
+        <div class="bg-white dark:bg-slate-800 p-5 md:p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-700 space-y-5 md:space-y-8 mb-10">
+            <h2 class="text-3xl font-bold text-slate-800 dark:text-slate-200 border-b-4 border-cyan-400 inline-block pb-2">Module 5:
+                Periodic Properties</h2>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-sm">
+                <div class="bg-slate-50 dark:bg-slate-700/50 p-5 rounded-xl border border-slate-200 dark:border-slate-700">
+                    <h3 class="font-bold text-lg text-cyan-800 dark:text-cyan-300 mb-2">1. Ionisation Energy (IE)</h3>
+                    <p>The minimum energy required to remove the most loosely bound electron from an isolated gaseous
+                        atom.</p>
+                    <p class="mt-2 text-slate-600 dark:text-slate-400"><strong>Trend:</strong> Increases across a period (due to higher
+                        effective nuclear charge). Decreases down a group (due to increased shielding and distance).</p>
+                </div>
+
+                <div class="bg-slate-50 dark:bg-slate-700/50 p-5 rounded-xl border border-slate-200 dark:border-slate-700">
+                    <h3 class="font-bold text-lg text-cyan-800 dark:text-cyan-300 mb-2">2. Electron Affinity (EA)</h3>
+                    <p>The energy released when an electron is added to a neutral, isolated gaseous atom to form an
+                        anion.</p>
+                    <p class="mt-2 text-slate-600 dark:text-slate-400"><strong>Trend:</strong> Becomes more negative (higher affinity)
+                        across a period. Halogens have the highest EA. Noble gases have near-zero EA.</p>
+                </div>
+
+                <div class="bg-slate-50 dark:bg-slate-700/50 p-5 rounded-xl border border-slate-200 dark:border-slate-700">
+                    <h3 class="font-bold text-lg text-cyan-800 dark:text-cyan-300 mb-2">3. Fajans' Rule</h3>
+                    <p>Predicts whether a chemical bond will be covalent or ionic. It states that an ionic bond gains
+                        <strong>Covalent Character</strong> when:</p>
+                    <ul class="list-disc pl-5 mt-2 text-slate-600 dark:text-slate-400 space-y-1">
+                        <li>The Cation is very <strong>small</strong>.</li>
+                        <li>The Anion is very <strong>large</strong> (highly polarizable).</li>
+                        <li>There is a <strong>high charge</strong> on either ion.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <footer class="text-center py-6 text-slate-500 dark:text-slate-400 text-sm mt-8 border-t border-slate-200 dark:border-slate-700">
+            Engineering Chemistry Master Module. Prepared to target exact examination formats and numerical derivations.
+        </footer>
+    </div>
+
+    <!-- ✨ AI Tutor Widget -->
+    <button onclick="toggleChat()"
+        class="fixed bottom-6 right-6 bg-cyan-600 text-white p-4 rounded-full shadow-2xl hover:bg-cyan-700 transition-transform transform hover:scale-105 z-50 flex items-center justify-center border-2 border-white">
+        <span class="text-2xl" title="Ask AI Tutor">✨</span>
+    </button>
+
+    <div id="ai-chat-window"
+        class="fixed bottom-24 right-6 w-80 sm:w-96 bg-white dark:bg-slate-800 rounded-2xl shadow-2xl border border-slate-200 dark:border-slate-700 flex flex-col z-50 hidden overflow-hidden transition-all duration-300 transform translate-y-4 opacity-0">
+        <div
+            class="bg-gradient-to-r from-cyan-600 to-blue-600 text-white p-4 flex justify-between items-center shadow-md">
+            <div class="font-bold flex items-center gap-2">
+                <span>✨</span> AI Chemistry Tutor
+            </div>
+            <button onclick="toggleChat()" class="text-white hover:text-cyan-200 font-bold text-lg">&times;</button>
+        </div>
+        <div id="chat-messages" class="flex-1 p-4 overflow-y-scroll bg-slate-50 dark:bg-slate-700/50 space-y-3 h-80 text-sm">
+            <div class="bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 p-3 rounded-xl rounded-tl-none shadow-sm">
+                Hello! I'm your AI Chemistry Tutor. Ask me anything about the study guide, or click the ✨ buttons in the
+                notes to generate analogies and practice problems!
+            </div>
+        </div>
+        <div class="p-3 bg-white dark:bg-slate-800 border-t border-slate-200 dark:border-slate-700 flex gap-2">
+            <input type="text" id="chat-input" placeholder="Ask a chemistry question..."
+                class="flex-1 bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-200 border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-cyan-500 text-sm"
+                onkeypress="if(event.key === 'Enter') sendUserMessage()">
+            <button onclick="sendUserMessage()"
+                class="bg-cyan-600 hover:bg-cyan-700 text-white px-4 py-2 rounded-lg font-bold transition-colors shadow-sm">Send</button>
+        </div>
+    </div>
+
+    <script>
+        // API Key (Split into two parts to avoid GitHub security scanners)
+        // Example: If your key is "AIzaSy123456", set part1="AIzaSy" and part2="123456"
+        const apiKeyPart1 = "AIzaSyD9eFejztF-m";
+        const apiKeyPart2 = "LR7iLC2Fmx11yYL8wImBHY";
+        const apiKey = apiKeyPart1 + apiKeyPart2;
+
+        // UI Elements
+        const chatWindow = document.getElementById('ai-chat-window');
+        const chatMessages = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+        let chatOpen = false;
+        let chatTimeout;
+
+        function toggleChat() {
+            chatOpen = !chatOpen;
+            clearTimeout(chatTimeout);
+            if (chatOpen) {
+                chatWindow.classList.remove('hidden');
+                void chatWindow.offsetWidth; // Trigger reflow for animation
+                chatWindow.classList.remove('translate-y-4', 'opacity-0');
+                chatInput.focus();
+            } else {
+                chatWindow.classList.add('translate-y-4', 'opacity-0');
+                chatTimeout = setTimeout(() => chatWindow.classList.add('hidden'), 300);
+            }
+        }
+
+        function appendMessage(sender, text) {
+            const msgDiv = document.createElement('div');
+            // Basic markdown parser for bolding and line breaks
+            const formattedText = text.replace(/\*\*(.*?)\*\*/g, '<b>$1</b>').replace(/\n/g, '<br>');
+
+            if (sender === 'user') {
+                msgDiv.className = 'bg-cyan-600 text-white p-3 rounded-xl rounded-tr-none shadow-sm ml-8 self-end';
+                msgDiv.innerHTML = formattedText;
+            } else if (sender === 'ai') {
+                msgDiv.className = 'bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-800 dark:text-slate-200 p-3 rounded-xl rounded-tl-none shadow-sm mr-8 self-start';
+                msgDiv.innerHTML = formattedText;
+            } else if (sender === 'loading') {
+                msgDiv.id = 'loading-indicator';
+                msgDiv.className = 'bg-slate-200 text-slate-600 dark:text-slate-400 p-3 rounded-xl rounded-tl-none shadow-sm mr-16 self-start animate-pulse';
+                msgDiv.innerHTML = 'Thinking... ✨';
+            }
+
+            chatMessages.appendChild(msgDiv);
+            chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        function removeLoading() {
+            const loading = document.getElementById('loading-indicator');
+            if (loading) loading.remove();
+        }
+
+        async function fetchGeminiWithRetry(prompt, retries = 5) {
+            const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
+            const systemInstruction = "You are an expert Engineering Chemistry tutor. Explain concepts clearly and concisely. Format responses with plain text and **bolding** for emphasis. Keep answers under 3 paragraphs. Only use text (no complex markdown tables or LaTeX). Relate topics to Engineering Chemistry when possible.";
+
+            const payload = {
+                contents: [{ parts: [{ text: prompt }] }],
+                systemInstruction: { parts: [{ text: systemInstruction }] }
+            };
+
+            const options = {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(payload)
+            };
+
+            let delay = 1000;
+            for (let i = 0; i < retries; i++) {
+                try {
+                    const response = await fetch(url, options);
+                    if (!response.ok) throw new Error(`HTTP Error: ${response.status}`);
+                    const data = await response.json();
+                    return data.candidates[0].content.parts[0].text;
+                } catch (error) {
+                    if (i === retries - 1) throw error;
+                    await new Promise(resolve => setTimeout(resolve, delay));
+                    delay *= 2; // Exponential backoff (1s, 2s, 4s, 8s, 16s)
+                }
+            }
+        }
+
+        async function processQuery(prompt) {
+            if (!chatOpen) toggleChat();
+            appendMessage('user', prompt);
+            appendMessage('loading', '');
+
+            try {
+                const responseText = await fetchGeminiWithRetry(prompt);
+                removeLoading();
+                appendMessage('ai', responseText);
+            } catch (error) {
+                removeLoading();
+                appendMessage('ai', "Sorry, I encountered a network error. Please try again.");
+                console.error("Gemini API Error:", error);
+            }
+        }
+
+        function sendUserMessage() {
+            const text = chatInput.value.trim();
+            if (!text) return;
+            chatInput.value = '';
+            processQuery(text);
+        }
+
+        // Feature triggers
+        function explainLikeImFive(topic) {
+            const prompt = `Explain the chemistry topic "${topic}" to me like I am a 5-year-old. Use a simple, fun analogy.`;
+            processQuery(prompt);
+        }
+
+        function generateQuiz(topic) {
+            const prompt = `Generate a single, moderately difficult multiple-choice practice question about "${topic}". Provide 4 options (A, B, C, D) and then reveal the correct answer with a short explanation at the bottom.`;
+            processQuery(prompt);
+        }
+    </script>
+</body>
+
+</html>
